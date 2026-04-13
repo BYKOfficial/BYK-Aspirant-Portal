@@ -1,0 +1,2441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BYK All Exam.AI — India's #1 Competitive Exam Ecosystem</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   BYK ALL EXAM.AI — PREMIUM DESIGN SYSTEM
+   Color Palette:
+   #0A0F2E = Deep Navy (Authority)
+   #FFB800 = Gold (Excellence)
+   #1A2252 = Navy Mid
+   #2D3A8C = Royal Blue
+   #F8F9FF = Clean White
+   #E8ECF8 = Light Slate
+   #4FFFB0 = Neon Mint (accent)
+   ============================================ */
+
+:root {
+  --navy:      #0A0F2E;
+  --navy-mid:  #1A2252;
+  --royal:     #2D3A8C;
+  --gold:      #FFB800;
+  --gold-lt:   #FFD15C;
+  --mint:      #4FFFB0;
+  --white:     #F8F9FF;
+  --slate:     #E8ECF8;
+  --muted:     #8A94B8;
+  --red:       #FF4757;
+  --green:     #2ED573;
+  --card-bg:   #111936;
+  --border:    rgba(255,184,0,0.15);
+  --glow:      0 0 40px rgba(255,184,0,0.15);
+  --font-head: 'Playfair Display', serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--navy);
+  color: var(--white);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── CUSTOM CURSOR ── */
+#cursor {
+  width: 12px; height: 12px;
+  background: var(--gold);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none;
+  z-index: 99999;
+  transition: transform 0.15s ease, opacity 0.3s;
+  mix-blend-mode: difference;
+}
+#cursor-trail {
+  width: 32px; height: 32px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none;
+  z-index: 99998;
+  transition: transform 0.35s ease;
+  opacity: 0.5;
+}
+
+/* ── NOISE TEXTURE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 99997; opacity: 0.4;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--navy-mid); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+/* ── NAVBAR ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5vw;
+  height: 72px;
+  background: rgba(10,15,46,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: all 0.4s ease;
+}
+nav.scrolled {
+  height: 60px;
+  background: rgba(10,15,46,0.97);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-head);
+  font-size: 1.35rem; font-weight: 900;
+  color: var(--white); text-decoration: none;
+  letter-spacing: -0.02em;
+}
+.nav-logo span { color: var(--gold); }
+.logo-badge {
+  background: linear-gradient(135deg, var(--gold), #FF8C00);
+  color: var(--navy);
+  font-family: var(--font-mono);
+  font-size: 0.55rem; font-weight: 600;
+  padding: 2px 6px; border-radius: 4px;
+  letter-spacing: 0.05em; text-transform: uppercase;
+}
+.nav-links {
+  display: flex; align-items: center; gap: 2rem;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--muted); text-decoration: none;
+  font-size: 0.875rem; font-weight: 500;
+  transition: color 0.25s;
+  position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute;
+  bottom: -4px; left: 0; right: 0; height: 1.5px;
+  background: var(--gold); transform: scaleX(0);
+  transition: transform 0.25s ease;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-cta {
+  background: var(--gold); color: var(--navy) !important;
+  padding: 10px 22px; border-radius: 8px;
+  font-weight: 700 !important; font-size: 0.85rem !important;
+  transition: all 0.25s ease !important;
+}
+.nav-cta:hover {
+  background: var(--gold-lt) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(255,184,0,0.35) !important;
+}
+.nav-cta::after { display: none !important; }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+.hamburger span { width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: 0.3s; }
+
+/* ── HERO SECTION ── */
+#hero {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+  padding: 120px 5vw 80px;
+}
+
+/* Animated grid background */
+#hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(45,58,140,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(45,58,140,0.08) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: gridMove 20s linear infinite;
+}
+@keyframes gridMove {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(60px); }
+}
+
+/* Radial glow */
+#hero::after {
+  content: '';
+  position: absolute;
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, rgba(255,184,0,0.07) 0%, transparent 70%);
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.hero-container {
+  max-width: 1200px; width: 100%; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: center; position: relative; z-index: 1;
+}
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,184,0,0.1);
+  border: 1px solid rgba(255,184,0,0.3);
+  padding: 8px 16px; border-radius: 100px;
+  font-size: 0.78rem; font-weight: 600;
+  color: var(--gold); letter-spacing: 0.08em;
+  text-transform: uppercase; margin-bottom: 1.5rem;
+  animation: fadeInUp 0.8s ease both;
+}
+.badge-dot {
+  width: 7px; height: 7px;
+  background: var(--gold); border-radius: 50%;
+  animation: pulse 2s ease infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.4); }
+}
+
+.hero-headline {
+  font-family: var(--font-head);
+  font-size: clamp(2.5rem, 4.5vw, 4.2rem);
+  font-weight: 900; line-height: 1.08;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.9s ease 0.1s both;
+}
+.hero-headline em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--gold), #FF8C00);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-headline .accent-line {
+  display: block;
+  color: var(--mint);
+  font-size: 0.6em; font-weight: 700;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  font-family: var(--font-body);
+  -webkit-text-fill-color: initial;
+  margin-bottom: 0.3em;
+}
+
+.hero-subtext {
+  font-size: 1.05rem; color: var(--muted);
+  line-height: 1.75; max-width: 480px;
+  margin-bottom: 2.5rem;
+  animation: fadeInUp 1s ease 0.2s both;
+}
+
+.hero-cta-group {
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  margin-bottom: 3rem;
+  animation: fadeInUp 1s ease 0.3s both;
+}
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: linear-gradient(135deg, var(--gold), #FF8C00);
+  color: var(--navy); font-weight: 700;
+  padding: 16px 32px; border-radius: 12px;
+  text-decoration: none; font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 0 0 rgba(255,184,0,0.4);
+  position: relative; overflow: hidden;
+  border: none; cursor: pointer;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute; top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+.btn-primary:hover::before { left: 100%; }
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(255,184,0,0.4);
+}
+
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: transparent;
+  color: var(--white); font-weight: 600;
+  padding: 15px 28px; border-radius: 12px;
+  text-decoration: none; font-size: 0.95rem;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.btn-secondary:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: translateY(-2px);
+}
+
+.hero-stats {
+  display: flex; gap: 2rem;
+  animation: fadeInUp 1s ease 0.4s both;
+}
+.stat-item { text-align: left; }
+.stat-num {
+  font-family: var(--font-head);
+  font-size: 1.8rem; font-weight: 700;
+  color: var(--gold); display: block;
+}
+.stat-label {
+  font-size: 0.75rem; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+
+/* Hero visual panel */
+.hero-visual {
+  position: relative; animation: fadeInRight 1s ease 0.3s both;
+}
+.hero-card-main {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 20px; padding: 24px;
+  box-shadow: var(--glow), 0 30px 60px rgba(0,0,0,0.5);
+  position: relative; overflow: hidden;
+}
+.hero-card-main::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 20px;
+}
+.card-dots { display: flex; gap: 6px; }
+.card-dots span {
+  width: 10px; height: 10px; border-radius: 50%;
+}
+.card-dots span:nth-child(1) { background: #FF5F57; }
+.card-dots span:nth-child(2) { background: #FFBD2E; }
+.card-dots span:nth-child(3) { background: #28C840; }
+.card-title-sm {
+  font-family: var(--font-mono);
+  font-size: 0.7rem; color: var(--muted);
+}
+
+/* Live mock test timer in hero card */
+.mock-timer-display {
+  text-align: center; padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+.timer-label {
+  font-size: 0.72rem; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+.timer-digits {
+  font-family: var(--font-mono);
+  font-size: 3.5rem; font-weight: 600;
+  color: var(--gold); letter-spacing: 0.05em;
+  text-shadow: 0 0 20px rgba(255,184,0,0.4);
+}
+.timer-progress {
+  height: 4px; background: rgba(255,255,255,0.1);
+  border-radius: 2px; margin-top: 12px; overflow: hidden;
+}
+.timer-progress-bar {
+  height: 100%; width: 73%;
+  background: linear-gradient(90deg, var(--gold), #FF8C00);
+  border-radius: 2px;
+  animation: progressAnim 30s linear forwards;
+}
+@keyframes progressAnim {
+  0% { width: 73%; }
+  100% { width: 0%; }
+}
+
+.mock-question {
+  padding: 16px 0;
+}
+.question-text {
+  font-size: 0.88rem; line-height: 1.6;
+  color: var(--white); margin-bottom: 14px;
+  font-weight: 500;
+}
+.options-grid { display: flex; flex-direction: column; gap: 8px; }
+.option-item {
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px; padding: 10px 14px;
+  font-size: 0.82rem; cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--muted);
+}
+.option-item:hover {
+  border-color: var(--gold);
+  background: rgba(255,184,0,0.08);
+  color: var(--white);
+}
+.option-item.correct {
+  border-color: var(--green);
+  background: rgba(46,213,115,0.1);
+  color: var(--green);
+}
+.option-key {
+  width: 22px; height: 22px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.7rem; font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* Floating badges */
+.float-badge {
+  position: absolute;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px; padding: 10px 16px;
+  font-size: 0.78rem; font-weight: 600;
+  display: flex; align-items: center; gap: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  animation: float 4s ease-in-out infinite;
+  white-space: nowrap;
+}
+.float-badge-1 { top: -20px; right: -20px; animation-delay: 0s; }
+.float-badge-2 { bottom: 20px; left: -30px; animation-delay: 2s; }
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.fb-icon { font-size: 1.1rem; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ── EXAM TICKER ── */
+.exam-ticker {
+  background: linear-gradient(90deg, var(--gold), #FF8C00);
+  padding: 10px 0; overflow: hidden;
+  position: relative;
+}
+.ticker-track {
+  display: flex; gap: 0;
+  animation: ticker 30s linear infinite;
+  width: max-content;
+}
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.ticker-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 0 30px;
+  font-size: 0.78rem; font-weight: 700;
+  color: var(--navy); text-transform: uppercase;
+  letter-spacing: 0.08em; white-space: nowrap;
+}
+.ticker-sep { color: rgba(10,15,46,0.4); }
+
+/* ── SECTION BASE ── */
+section { padding: 100px 5vw; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.section-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem; font-weight: 600;
+  color: var(--gold); text-transform: uppercase;
+  letter-spacing: 0.15em; margin-bottom: 1rem;
+}
+.section-tag::before, .section-tag::after {
+  content: '──'; opacity: 0.4; font-weight: 400;
+}
+.section-heading {
+  font-family: var(--font-head);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 900; line-height: 1.1;
+  letter-spacing: -0.03em; margin-bottom: 1rem;
+}
+.section-heading em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--gold), #FF8C00);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.section-sub {
+  font-size: 1rem; color: var(--muted);
+  line-height: 1.7; max-width: 560px;
+  margin-bottom: 3rem;
+}
+
+/* ── STATS BELT ── */
+#stats {
+  padding: 60px 5vw;
+  background: linear-gradient(180deg, var(--navy) 0%, var(--navy-mid) 100%);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.stats-grid {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+}
+.stat-box {
+  text-align: center; padding: 2rem 1.5rem;
+  border-right: 1px solid var(--border);
+  transition: transform 0.3s ease;
+}
+.stat-box:last-child { border-right: none; }
+.stat-box:hover { transform: translateY(-4px); }
+.stat-big {
+  font-family: var(--font-head);
+  font-size: 2.8rem; font-weight: 900;
+  color: var(--gold); display: block;
+  line-height: 1;
+}
+.stat-desc { font-size: 0.82rem; color: var(--muted); margin-top: 6px; }
+
+/* ── FEATURES SECTION ── */
+#features { background: var(--navy-mid); }
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 20px; overflow: hidden;
+}
+.feature-card {
+  background: var(--card-bg);
+  padding: 2.5rem 2rem;
+  transition: all 0.3s ease;
+  position: relative; overflow: hidden;
+}
+.feature-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,184,0,0.04), transparent);
+  opacity: 0; transition: opacity 0.3s;
+}
+.feature-card:hover::before { opacity: 1; }
+.feature-card:hover { transform: scale(1.01); }
+.feature-icon {
+  width: 52px; height: 52px;
+  background: rgba(255,184,0,0.1);
+  border: 1px solid rgba(255,184,0,0.2);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; margin-bottom: 1.2rem;
+}
+.feature-title {
+  font-size: 1.1rem; font-weight: 700;
+  margin-bottom: 0.5rem; color: var(--white);
+}
+.feature-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+.feature-badge {
+  display: inline-block; margin-top: 1rem;
+  padding: 4px 10px; border-radius: 6px;
+  font-size: 0.7rem; font-weight: 700;
+  font-family: var(--font-mono);
+  background: rgba(255,184,0,0.12);
+  color: var(--gold);
+}
+
+/* ── STUDY VAULT ── */
+#vault { background: var(--navy); }
+.vault-grid {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem; align-items: start;
+}
+.vault-nav {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px; overflow: hidden;
+  position: sticky; top: 100px;
+}
+.vault-nav-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.75rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--muted);
+}
+.vault-nav-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  cursor: pointer; transition: all 0.2s ease;
+  font-size: 0.875rem; font-weight: 500;
+  color: var(--muted);
+}
+.vault-nav-item:hover, .vault-nav-item.active {
+  background: rgba(255,184,0,0.06);
+  color: var(--gold);
+  border-left: 2px solid var(--gold);
+}
+.vault-nav-item .vi { font-size: 1rem; }
+.vault-nav-count {
+  margin-left: auto;
+  background: rgba(255,184,0,0.15);
+  color: var(--gold);
+  font-family: var(--font-mono);
+  font-size: 0.65rem; font-weight: 700;
+  padding: 2px 7px; border-radius: 4px;
+}
+
+.vault-content { display: flex; flex-direction: column; gap: 1rem; }
+.vault-category-title {
+  font-size: 0.7rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--muted); padding-left: 4px;
+  margin-top: 0.5rem;
+}
+.vault-item {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px; padding: 18px 22px;
+  display: flex; align-items: center; gap: 16px;
+  cursor: pointer; transition: all 0.25s ease;
+  text-decoration: none; color: inherit;
+}
+.vault-item:hover {
+  border-color: var(--gold);
+  transform: translateX(4px);
+  box-shadow: -4px 0 0 var(--gold), var(--glow);
+}
+.vault-item-icon {
+  width: 44px; height: 44px; flex-shrink: 0;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+}
+.vi-pdf { background: rgba(255,71,87,0.15); }
+.vi-video { background: rgba(79,255,176,0.12); }
+.vi-note { background: rgba(255,184,0,0.12); }
+.vi-quiz { background: rgba(45,58,140,0.4); }
+.vault-item-info { flex: 1; min-width: 0; }
+.vault-item-name {
+  font-size: 0.9rem; font-weight: 600; color: var(--white);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.vault-item-meta {
+  font-size: 0.75rem; color: var(--muted); margin-top: 3px;
+}
+.vault-item-action {
+  font-size: 0.75rem; font-weight: 700;
+  color: var(--gold); opacity: 0;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+.vault-item:hover .vault-item-action { opacity: 1; }
+
+/* ── QUIZ HUB ── */
+#quiz { background: var(--navy-mid); }
+.quiz-layout {
+  display: grid; grid-template-columns: 1fr 380px;
+  gap: 2rem; align-items: start;
+}
+.quiz-panel {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 20px; overflow: hidden;
+  position: relative;
+}
+.quiz-panel::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--gold), #FF8C00, var(--mint));
+}
+.quiz-panel-header {
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.quiz-panel-title {
+  font-size: 0.8rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted);
+}
+.quiz-timer-live {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 1rem; font-weight: 600; color: var(--gold);
+}
+.timer-live-dot {
+  width: 8px; height: 8px; background: var(--red);
+  border-radius: 50%; animation: pulse 1.5s ease infinite;
+}
+.quiz-body { padding: 28px; }
+.q-number {
+  font-family: var(--font-mono);
+  font-size: 0.72rem; color: var(--muted);
+  margin-bottom: 12px;
+}
+.q-text {
+  font-size: 1.1rem; font-weight: 600;
+  line-height: 1.6; color: var(--white);
+  margin-bottom: 24px;
+}
+.q-options { display: flex; flex-direction: column; gap: 10px; }
+.q-option {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 14px 18px; border-radius: 10px;
+  border: 1.5px solid rgba(255,255,255,0.08);
+  cursor: pointer; transition: all 0.2s ease;
+  font-size: 0.9rem; color: var(--muted);
+  background: rgba(255,255,255,0.02);
+}
+.q-option:hover {
+  border-color: var(--gold);
+  background: rgba(255,184,0,0.07);
+  color: var(--white);
+}
+.q-option.selected {
+  border-color: var(--royal);
+  background: rgba(45,58,140,0.3);
+  color: var(--white);
+}
+.q-option.correct {
+  border-color: var(--green) !important;
+  background: rgba(46,213,115,0.1) !important;
+  color: var(--green) !important;
+}
+.q-option.wrong {
+  border-color: var(--red) !important;
+  background: rgba(255,71,87,0.1) !important;
+  color: var(--red) !important;
+}
+.opt-key {
+  width: 26px; height: 26px; flex-shrink: 0;
+  border-radius: 6px; border: 1.5px solid currentColor;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700;
+}
+.quiz-footer {
+  padding: 20px 28px;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.q-progress-dots {
+  display: flex; gap: 6px;
+}
+.q-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  transition: all 0.2s;
+}
+.q-dot.done { background: var(--green); }
+.q-dot.current { background: var(--gold); transform: scale(1.4); }
+.q-dot.wrong-dot { background: var(--red); }
+
+/* Sidebar leaderboard */
+.quiz-sidebar { display: flex; flex-direction: column; gap: 1rem; }
+.sidebar-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px; padding: 20px 22px;
+}
+.sidebar-card-title {
+  font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--muted); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.leaderboard-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.leaderboard-row:last-child { border: none; }
+.lb-rank {
+  width: 24px; text-align: center;
+  font-family: var(--font-mono); font-size: 0.72rem;
+  font-weight: 700; color: var(--muted);
+}
+.lb-rank.gold-rank { color: var(--gold); }
+.lb-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--royal); display: flex; align-items: center;
+  justify-content: center; font-size: 0.9rem; flex-shrink: 0;
+}
+.lb-name { font-size: 0.82rem; font-weight: 600; flex: 1; color: var(--white); }
+.lb-score {
+  font-family: var(--font-mono); font-size: 0.78rem;
+  color: var(--gold); font-weight: 600;
+}
+
+/* category pills */
+.exam-pills {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.exam-pill {
+  padding: 8px 16px; border-radius: 8px;
+  border: 1.5px solid var(--border);
+  font-size: 0.78rem; font-weight: 600;
+  color: var(--muted); cursor: pointer;
+  transition: all 0.2s ease;
+  background: transparent;
+}
+.exam-pill:hover, .exam-pill.active {
+  border-color: var(--gold);
+  background: rgba(255,184,0,0.1);
+  color: var(--gold);
+}
+
+/* ── CURRENT AFFAIRS ── */
+#current-affairs { background: var(--navy); }
+.ca-timeline {
+  position: relative;
+  max-width: 900px;
+}
+.ca-timeline::before {
+  content: '';
+  position: absolute; left: 100px; top: 0; bottom: 0; width: 1px;
+  background: linear-gradient(180deg, transparent, var(--border), var(--border), transparent);
+}
+.ca-item {
+  display: grid; grid-template-columns: 100px 1fr;
+  gap: 2rem; margin-bottom: 2rem;
+  position: relative;
+}
+.ca-date {
+  text-align: right; padding-right: 1.5rem; padding-top: 0.25rem;
+  font-family: var(--font-mono); font-size: 0.72rem;
+  color: var(--muted); line-height: 1.4;
+}
+.ca-date strong { display: block; color: var(--gold); font-size: 0.85rem; }
+.ca-dot {
+  position: absolute; left: 93px;
+  top: 10px; width: 15px; height: 15px;
+  background: var(--gold); border-radius: 50%;
+  border: 3px solid var(--navy);
+  box-shadow: 0 0 0 3px rgba(255,184,0,0.3);
+}
+.ca-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px; padding: 20px 22px;
+  transition: all 0.25s ease;
+}
+.ca-card:hover {
+  border-color: var(--gold);
+  transform: translateX(6px);
+}
+.ca-tag {
+  display: inline-block;
+  padding: 3px 10px; border-radius: 5px;
+  font-size: 0.65rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin-bottom: 8px; font-family: var(--font-mono);
+}
+.tag-polity { background: rgba(79,255,176,0.15); color: var(--mint); }
+.tag-economy { background: rgba(255,184,0,0.15); color: var(--gold); }
+.tag-science { background: rgba(45,58,140,0.4); color: #8BB4FF; }
+.tag-sports { background: rgba(255,71,87,0.15); color: var(--red); }
+.tag-world { background: rgba(46,213,115,0.15); color: var(--green); }
+.ca-headline { font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+.ca-snippet { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+.ca-source {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 10px; font-size: 0.7rem; color: var(--muted);
+  font-family: var(--font-mono);
+}
+
+/* ── PROGRESS TRACKER ── */
+#tracker { background: var(--navy-mid); }
+.tracker-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.tracker-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 20px; padding: 28px;
+}
+.tracker-card.wide { grid-column: 1 / -1; }
+.tracker-title {
+  font-size: 0.78rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--muted); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+/* Circular progress */
+.circ-progress-wrap {
+  display: flex; align-items: center; justify-content: center;
+  gap: 3rem; flex-wrap: wrap;
+}
+.circ-item { text-align: center; }
+.circ-svg { transform: rotate(-90deg); }
+.circ-track { fill: none; stroke: rgba(255,255,255,0.06); }
+.circ-fill { fill: none; stroke-linecap: round; transition: stroke-dashoffset 1.5s ease; }
+.circ-label { font-size: 1.1rem; font-weight: 700; fill: var(--white); }
+.circ-sub-label { font-size: 0.55rem; fill: var(--muted); }
+.circ-name {
+  font-size: 0.78rem; font-weight: 600;
+  color: var(--muted); margin-top: 10px;
+}
+
+/* Bar chart */
+.bar-chart { display: flex; flex-direction: column; gap: 14px; }
+.bar-row { display: flex; align-items: center; gap: 12px; }
+.bar-subject {
+  width: 120px; font-size: 0.78rem;
+  color: var(--muted); text-align: right; flex-shrink: 0;
+}
+.bar-track {
+  flex: 1; height: 8px; background: rgba(255,255,255,0.06);
+  border-radius: 4px; overflow: hidden;
+}
+.bar-fill {
+  height: 100%; border-radius: 4px;
+  transition: width 1.5s ease;
+  background: linear-gradient(90deg, var(--royal), var(--gold));
+}
+.bar-pct {
+  width: 36px; font-family: var(--font-mono);
+  font-size: 0.72rem; color: var(--gold); font-weight: 600;
+}
+
+/* Activity heatmap (simplified) */
+.heatmap-grid {
+  display: grid;
+  grid-template-columns: repeat(52, 1fr);
+  gap: 3px; overflow-x: auto;
+}
+.heatmap-cell {
+  aspect-ratio: 1; border-radius: 2px;
+  background: rgba(255,255,255,0.04);
+  transition: background 0.2s;
+}
+.heatmap-cell.h1 { background: rgba(255,184,0,0.2); }
+.heatmap-cell.h2 { background: rgba(255,184,0,0.45); }
+.heatmap-cell.h3 { background: rgba(255,184,0,0.7); }
+.heatmap-cell.h4 { background: rgba(255,184,0,1); }
+
+/* ── SUCCESS STORIES ── */
+#stories { background: var(--navy); }
+.stories-marquee { overflow: hidden; margin: 0 -5vw; }
+.stories-track {
+  display: flex; gap: 1.5rem; padding: 0 5vw;
+  animation: marquee 40s linear infinite;
+  width: max-content;
+}
+.stories-track:hover { animation-play-state: paused; }
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.story-card {
+  width: 340px; flex-shrink: 0;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 18px; padding: 24px;
+  transition: all 0.3s ease;
+}
+.story-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+  box-shadow: var(--glow);
+}
+.story-top {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 16px;
+}
+.story-avatar {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--royal); display: flex;
+  align-items: center; justify-content: center;
+  font-size: 1.5rem; flex-shrink: 0;
+  border: 2px solid var(--gold);
+}
+.story-name { font-size: 1rem; font-weight: 700; color: var(--white); }
+.story-rank {
+  font-size: 0.75rem; color: var(--gold);
+  font-family: var(--font-mono); font-weight: 600;
+}
+.story-stars { color: var(--gold); font-size: 0.85rem; margin-bottom: 12px; }
+.story-quote {
+  font-size: 0.87rem; color: var(--muted);
+  line-height: 1.7; font-style: italic;
+}
+.story-quote::before { content: '"'; color: var(--gold); font-size: 1.5em; }
+.story-tag {
+  display: inline-block; margin-top: 14px;
+  padding: 4px 10px; border-radius: 6px;
+  font-size: 0.68rem; font-weight: 700;
+  background: rgba(255,184,0,0.12); color: var(--gold);
+  font-family: var(--font-mono);
+}
+
+/* ── FREE TOOLS GUIDE ── */
+#tools { background: var(--navy-mid); }
+.tools-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.tool-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px; padding: 24px;
+  transition: all 0.3s ease;
+  position: relative; overflow: hidden;
+}
+.tool-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), #FF8C00);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+.tool-card:hover::after { transform: scaleX(1); }
+.tool-card:hover { border-color: rgba(255,184,0,0.3); }
+.tool-logo {
+  width: 48px; height: 48px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; margin-bottom: 14px;
+}
+.tool-name { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+.tool-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
+.tool-how {
+  font-size: 0.75rem; color: var(--mint);
+  font-family: var(--font-mono); line-height: 1.7;
+}
+.tool-how li { margin-bottom: 4px; }
+.pro-tip {
+  margin-top: 12px; padding: 10px 14px;
+  background: rgba(255,184,0,0.07);
+  border-left: 2px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.72rem; color: var(--muted); line-height: 1.5;
+}
+.pro-tip strong { color: var(--gold); }
+
+/* ── 24H ROADMAP ── */
+#roadmap { background: var(--navy); }
+.roadmap-steps {
+  display: grid; gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 20px; overflow: hidden;
+  max-width: 900px;
+}
+.roadmap-step {
+  background: var(--card-bg); padding: 28px 32px;
+  display: grid; grid-template-columns: 64px 1fr;
+  gap: 1.5rem; align-items: start;
+  transition: all 0.25s ease;
+}
+.roadmap-step:hover { background: #151e42; }
+.step-num {
+  width: 48px; height: 48px;
+  border: 2px solid var(--gold);
+  border-radius: 50%; display: flex;
+  align-items: center; justify-content: center;
+  font-family: var(--font-head); font-size: 1.3rem;
+  font-weight: 900; color: var(--gold);
+  flex-shrink: 0;
+}
+.step-time {
+  font-family: var(--font-mono); font-size: 0.68rem;
+  color: var(--mint); text-transform: uppercase;
+  letter-spacing: 0.1em; margin-bottom: 6px;
+}
+.step-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+.step-detail { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+.step-tools {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;
+}
+.step-tool-tag {
+  padding: 3px 10px; border-radius: 6px;
+  font-size: 0.68rem; font-weight: 600;
+  background: rgba(45,58,140,0.4); color: #8BB4FF;
+  font-family: var(--font-mono);
+}
+
+/* ── COLOR PALETTE SHOWCASE ── */
+#palette { background: var(--navy-mid); padding: 80px 5vw; }
+.palette-row {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  max-width: 1200px; margin: 0 auto;
+  justify-content: center; padding-top: 2rem;
+}
+.palette-swatch {
+  flex: 1; min-width: 120px; max-width: 180px;
+  border-radius: 16px; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.swatch-color { height: 80px; }
+.swatch-info {
+  background: var(--card-bg); padding: 12px 14px;
+}
+.swatch-name { font-size: 0.8rem; font-weight: 700; }
+.swatch-hex { font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); }
+.swatch-use { font-size: 0.68rem; color: var(--muted); margin-top: 2px; }
+
+/* ── CTA SECTION ── */
+#cta {
+  background: linear-gradient(135deg, var(--navy-mid), var(--navy));
+  text-align: center; padding: 120px 5vw;
+  position: relative; overflow: hidden;
+}
+#cta::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(255,184,0,0.06), transparent 70%);
+}
+.cta-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+.cta-headline {
+  font-family: var(--font-head);
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-weight: 900; line-height: 1.1;
+  margin-bottom: 1rem; letter-spacing: -0.03em;
+}
+.cta-sub {
+  font-size: 1rem; color: var(--muted);
+  line-height: 1.7; margin-bottom: 2.5rem;
+}
+.cta-buttons { display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--navy);
+  border-top: 1px solid var(--border);
+  padding: 60px 5vw 30px;
+}
+.footer-grid {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem; margin-bottom: 3rem;
+}
+.footer-brand { max-width: 280px; }
+.footer-logo {
+  font-family: var(--font-head);
+  font-size: 1.4rem; font-weight: 900;
+  margin-bottom: 12px;
+}
+.footer-logo span { color: var(--gold); }
+.footer-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.7; }
+.footer-col-title {
+  font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--muted); margin-bottom: 1rem;
+}
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.footer-links a {
+  font-size: 0.85rem; color: var(--muted);
+  text-decoration: none; transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--gold); }
+.footer-bottom {
+  max-width: 1200px; margin: 0 auto;
+  border-top: 1px solid var(--border);
+  padding-top: 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-copy {
+  font-size: 0.78rem; color: var(--muted);
+  font-family: var(--font-mono);
+}
+.footer-socials { display: flex; gap: 12px; }
+.social-btn {
+  width: 36px; height: 36px; border-radius: 8px;
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease;
+  text-decoration: none; color: var(--muted);
+}
+.social-btn:hover {
+  border-color: var(--gold); color: var(--gold);
+  transform: translateY(-2px);
+}
+
+/* ── MOBILE NAV ── */
+.mobile-nav {
+  position: fixed; inset: 0; z-index: 999;
+  background: var(--navy);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 2rem;
+  transform: translateX(100%);
+  transition: transform 0.35s ease;
+}
+.mobile-nav.open { transform: translateX(0); }
+.mobile-nav a {
+  font-size: 1.5rem; font-weight: 700;
+  color: var(--white); text-decoration: none;
+}
+.mobile-nav a:hover { color: var(--gold); }
+.mobile-close {
+  position: absolute; top: 20px; right: 5vw;
+  font-size: 2rem; cursor: pointer; color: var(--muted);
+}
+
+/* ── INTERSECTION OBSERVER ANIMATIONS ── */
+.reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-left {
+  opacity: 0; transform: translateX(-30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+.reveal-right {
+  opacity: 0; transform: translateX(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .hero-container { grid-template-columns: 1fr; }
+  .hero-visual { display: none; }
+  .vault-grid { grid-template-columns: 1fr; }
+  .vault-nav { position: static; display: flex; overflow-x: auto; }
+  .vault-nav-header { display: none; }
+  .vault-nav-item { border-bottom: none; border-right: 1px solid rgba(255,255,255,0.04); }
+  .quiz-layout { grid-template-columns: 1fr; }
+  .quiz-sidebar { display: none; }
+  .tracker-grid { grid-template-columns: 1fr; }
+  .tracker-card.wide { grid-column: 1; }
+  .tools-grid { grid-template-columns: 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  nav { padding: 0 5vw; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat-box:nth-child(2) { border-right: none; }
+  .stat-box { border-bottom: 1px solid var(--border); }
+  .features-grid { grid-template-columns: 1fr; }
+  .ca-timeline::before { left: 60px; }
+  .ca-item { grid-template-columns: 60px 1fr; gap: 1rem; }
+  .ca-dot { left: 53px; }
+  .tools-grid { grid-template-columns: 1fr; }
+  .roadmap-step { grid-template-columns: 1fr; }
+  .palette-swatch { min-width: 100px; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .hero-stats { flex-wrap: wrap; gap: 1rem; }
+  .heatmap-grid { grid-template-columns: repeat(26, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div id="cursor"></div>
+<div id="cursor-trail"></div>
+
+<!-- Mobile Nav Overlay -->
+<div class="mobile-nav" id="mobileNav">
+  <span class="mobile-close" onclick="toggleMobileNav()">✕</span>
+  <a href="#vault" onclick="toggleMobileNav()">Study Vault</a>
+  <a href="#quiz" onclick="toggleMobileNav()">Quiz Hub</a>
+  <a href="#current-affairs" onclick="toggleMobileNav()">Current Affairs</a>
+  <a href="#tracker" onclick="toggleMobileNav()">Progress</a>
+  <a href="#stories" onclick="toggleMobileNav()">Stories</a>
+  <a href="#cta" class="btn-primary" style="font-size:1rem;padding:14px 32px;" onclick="toggleMobileNav()">Start Free</a>
+</div>
+
+<!-- ═══════════════════ NAVBAR ═══════════════════ -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    BYK <span>All Exam</span><span class="logo-badge">.AI</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#vault">Study Vault</a></li>
+    <li><a href="#quiz">Quiz Hub</a></li>
+    <li><a href="#current-affairs">Current Affairs</a></li>
+    <li><a href="#tracker">Progress</a></li>
+    <li><a href="#stories">Stories</a></li>
+    <li><a href="#cta" class="nav-cta">Free Mock Test →</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMobileNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section id="hero">
+  <div class="hero-container">
+    <!-- Left Content -->
+    <div class="hero-left">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        India's #1 AI-Powered Exam Platform — April 2026
+      </div>
+      <h1 class="hero-headline">
+        <span class="accent-line">UPSC · JEE · SSC · BANKING · NEET</span>
+        Stop Studying <em>Harder.</em>
+        Start Clearing <em>Smarter.</em>
+      </h1>
+      <p class="hero-subtext">
+        BYK All Exam.AI is the only ecosystem that combines adaptive AI quizzes, daily current affairs, curated study vaults, and real-time progress tracking — all in one distraction-free platform. <strong style="color:var(--gold)">Join 2.1 lakh+ students who cracked their exams this year.</strong>
+      </p>
+      <div class="hero-cta-group">
+        <a href="#quiz" class="btn-primary">
+          ▶ Start Free Mock Test
+        </a>
+        <a href="#vault" class="btn-secondary">
+          📚 Explore Study Vault
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num" data-count="2100">0</span>
+          <span class="stat-label">Students Enrolled (in 00s)</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num" data-count="847">0</span>
+          <span class="stat-label">Selections in 2025–26</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num" data-count="99">0</span>
+          <span class="stat-label">% Free — Always</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Visual -->
+    <div class="hero-visual">
+      <div class="hero-card-main">
+        <div class="card-header">
+          <div class="card-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <span class="card-title-sm">LIVE MOCK TEST · UPSC PRELIMS 2026</span>
+        </div>
+        <div class="mock-timer-display">
+          <div class="timer-label">⏱ Time Remaining</div>
+          <div class="timer-digits" id="heroTimer">1:47:33</div>
+          <div class="timer-progress"><div class="timer-progress-bar"></div></div>
+        </div>
+        <div class="mock-question">
+          <div class="question-text">
+            Q.42 — With reference to India's G20 Presidency in 2023, which of the following themes was adopted?
+          </div>
+          <div class="options-grid">
+            <div class="option-item" onclick="selectHeroOption(this)">
+              <span class="option-key">A</span> One Earth, One Family, One Future
+            </div>
+            <div class="option-item correct" onclick="selectHeroOption(this)">
+              <span class="option-key">B</span> Vasudhaiva Kutumbakam
+            </div>
+            <div class="option-item" onclick="selectHeroOption(this)">
+              <span class="option-key">C</span> Unity in Diversity
+            </div>
+            <div class="option-item" onclick="selectHeroOption(this)">
+              <span class="option-key">D</span> Sabka Saath, Sabka Vikas
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Floating badges -->
+      <div class="float-badge float-badge-1">
+        <span class="fb-icon">🔥</span>
+        <span>847 Students Live Now</span>
+      </div>
+      <div class="float-badge float-badge-2">
+        <span class="fb-icon">🏆</span>
+        <span>Rank 1 · Priya S. — 98.4%</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ TICKER ═══════════════════ -->
+<div class="exam-ticker">
+  <div class="ticker-track">
+    <div class="ticker-item">📋 UPSC CSE 2026 <span class="ticker-sep">·</span> Notification Out</div>
+    <div class="ticker-item">🔬 NEET UG 2026 <span class="ticker-sep">·</span> May 4</div>
+    <div class="ticker-item">📐 JEE Advanced 2026 <span class="ticker-sep">·</span> June 1</div>
+    <div class="ticker-item">🏦 IBPS PO 2026 <span class="ticker-sep">·</span> Registrations Open</div>
+    <div class="ticker-item">🛡️ SSC CGL 2026 <span class="ticker-sep">·</span> Tier-I · July</div>
+    <div class="ticker-item">🎓 GATE 2027 <span class="ticker-sep">·</span> Registration Aug</div>
+    <div class="ticker-item">⚖️ CLAT 2026 <span class="ticker-sep">·</span> May 11</div>
+    <!-- Duplicate for seamless loop -->
+    <div class="ticker-item">📋 UPSC CSE 2026 <span class="ticker-sep">·</span> Notification Out</div>
+    <div class="ticker-item">🔬 NEET UG 2026 <span class="ticker-sep">·</span> May 4</div>
+    <div class="ticker-item">📐 JEE Advanced 2026 <span class="ticker-sep">·</span> June 1</div>
+    <div class="ticker-item">🏦 IBPS PO 2026 <span class="ticker-sep">·</span> Registrations Open</div>
+    <div class="ticker-item">🛡️ SSC CGL 2026 <span class="ticker-sep">·</span> Tier-I · July</div>
+    <div class="ticker-item">🎓 GATE 2027 <span class="ticker-sep">·</span> Registration Aug</div>
+    <div class="ticker-item">⚖️ CLAT 2026 <span class="ticker-sep">·</span> May 11</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ STATS ═══════════════════ -->
+<div id="stats">
+  <div class="stats-grid">
+    <div class="stat-box reveal">
+      <span class="stat-big" data-count="21">0</span>
+      <span class="stat-desc">Lakh+ Active Students</span>
+    </div>
+    <div class="stat-box reveal" style="transition-delay:0.1s">
+      <span class="stat-big" data-count="50000">0</span>
+      <span class="stat-desc">Questions in Quiz Bank</span>
+    </div>
+    <div class="stat-box reveal" style="transition-delay:0.2s">
+      <span class="stat-big" data-count="847">0</span>
+      <span class="stat-desc">Government Selections</span>
+    </div>
+    <div class="stat-box reveal" style="transition-delay:0.3s">
+      <span class="stat-big" data-count="100">0</span>
+      <span class="stat-desc">% Free — No Paywall Ever</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ FEATURES ═══════════════════ -->
+<section id="features">
+  <div class="section-inner">
+    <div style="text-align:center; margin-bottom: 4rem;">
+      <div class="section-tag reveal">What Makes Us Different</div>
+      <h2 class="section-heading reveal">Engineered for <em>Maximum Retention.</em></h2>
+      <p class="section-sub reveal" style="margin: 0 auto 0;">
+        Every feature is designed around one goal — your selection day. No distractions, no filler, no cost.
+      </p>
+    </div>
+    <div class="features-grid reveal">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-title">AI-Adaptive Quiz Engine</div>
+        <div class="feature-desc">Questions adjust to your real-time performance. Weak areas get more focus automatically using spaced repetition algorithms.</div>
+        <span class="feature-badge">ADAPTIVE AI</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📖</div>
+        <div class="feature-title">Deep Work Study Vault</div>
+        <div class="feature-desc">Curated PDFs, video lectures, and notes organized by exam, subject, and difficulty. Zero clutter, 100% signal.</div>
+        <span class="feature-badge">4,200+ RESOURCES</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📰</div>
+        <div class="feature-title">Daily Current Affairs Pulse</div>
+        <div class="feature-desc">Hand-picked, exam-relevant news with MCQs generated daily. Updated every morning by 6 AM IST.</div>
+        <span class="feature-badge">DAILY @ 6 AM</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title">Real-Time Progress Radar</div>
+        <div class="feature-desc">Track your accuracy, speed, and subject-wise performance with visual dashboards that show exactly where you stand.</div>
+        <span class="feature-badge">LIVE TRACKING</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏆</div>
+        <div class="feature-title">Live Mock Tests + Leaderboard</div>
+        <div class="feature-desc">Compete with 10,000+ students in timed mock tests that simulate exact exam conditions. Rank updated in real time.</div>
+        <span class="feature-badge">10K+ CONCURRENT</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤝</div>
+        <div class="feature-title">Peer Discussion Community</div>
+        <div class="feature-desc">Doubt-clearing forum, toppers' strategy threads, and daily challenges — moderated by selected alumni.</div>
+        <span class="feature-badge">2.1L COMMUNITY</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ STUDY VAULT ═══════════════════ -->
+<section id="vault">
+  <div class="section-inner">
+    <div class="section-tag reveal">Study Vault</div>
+    <h2 class="section-heading reveal">Everything You Need. <em>Nothing You Don't.</em></h2>
+    <p class="section-sub reveal">Hierarchical content organized exactly as the exams demand. Use the navigator to jump to your exam.</p>
+    <div class="vault-grid">
+      <!-- Left Nav -->
+      <nav class="vault-nav reveal-left">
+        <div class="vault-nav-header">Browse by Exam</div>
+        <div class="vault-nav-item active" onclick="filterVault('upsc')"><span class="vi">📋</span> UPSC CSE <span class="vault-nav-count">1.2k</span></div>
+        <div class="vault-nav-item" onclick="filterVault('jee')"><span class="vi">📐</span> JEE Main / Adv <span class="vault-nav-count">890</span></div>
+        <div class="vault-nav-item" onclick="filterVault('neet')"><span class="vi">🔬</span> NEET UG <span class="vault-nav-count">760</span></div>
+        <div class="vault-nav-item" onclick="filterVault('ssc')"><span class="vi">🛡️</span> SSC CGL/CHSL <span class="vault-nav-count">650</span></div>
+        <div class="vault-nav-item" onclick="filterVault('banking')"><span class="vi">🏦</span> Banking / IBPS <span class="vault-nav-count">540</span></div>
+        <div class="vault-nav-item" onclick="filterVault('ca')"><span class="vi">📰</span> Current Affairs <span class="vault-nav-count">365</span></div>
+        <div class="vault-nav-item" onclick="filterVault('prev')"><span class="vi">📁</span> PYQs (All Exams) <span class="vault-nav-count">2.8k</span></div>
+      </nav>
+      <!-- Content -->
+      <div class="vault-content reveal-right" id="vaultContent">
+        <div class="vault-category-title">📌 Pinned — High Value Resources</div>
+        <a href="#" class="vault-item">
+          <div class="vault-item-icon vi-pdf">📄</div>
+          <div class="vault-item-info">
+            <div class="vault-item-name">UPSC 2026 Syllabus + Topic Weightage Analysis</div>
+            <div class="vault-item-meta">PDF · 42 pages · Updated April 2026</div>
+          </div>
+          <div class="vault-item-action">Download →</div>
+        </a>
+        <a href="#" class="vault-item">
+          <div class="vault-item-icon vi-video">🎬</div>
+          <div class="vault-item-info">
+            <div class="vault-item-name">Modern History Master Crash Course — 12 hrs</div>
+            <div class="vault-item-meta">Video Series · 48 lectures · HD Quality</div>
+          </div>
+          <div class="vault-item-action">Watch →</div>
+        </a>
+        <div class="vault-category-title">📚 Standard Notes — GS Paper I</div>
+        <a href="#" class="vault-item">
+          <div class="vault-item-icon vi-note">📝</div>
+          <div class="vault-item-info">
+            <div class="vault-item-name">Indian Polity — Laxmikant Summary Notes</div>
+            <div class="vault-item-meta">PDF · 180 pages · Color-coded</div>
+          </div>
+          <div class="vault-item-action">Open →</div>
+        </a>
+        <a href="#" class="vault-item">
+          <div class="vault-item-icon vi-note">📝</div>
+          <div class="vault-item-info">
+            <div class="vault-item-name">Ancient & Medieval India — Complete Notes</div>
+            <div class="vault-item-meta">PDF · 95 pages · With maps & diagrams</div>
+          </div>
+          <div class="vault-item-action">Open →</div>
+        </a>
+        <a href="#" class="vault-item">
+          <div class="vault-item-icon vi-pdf">📄</div>
+          <div class="vault-item-info">
+            <div class="vault-item-name">Indian Geography — Physical + Human (Detailed)</div>
+            <div class="vault-item-meta">PDF · 220 pages · NCERT-aligned</div>
+          </div>
+          <div class="vault-item-action">Open →</div>
+        </a>
+        <div class="vault-category-title">🧩 Previous Year Papers (PYQs)</div>
+        <a href="#" class="vault-item">
+          <div class="vault-item-icon vi-quiz">📋</div>
+          <div class="vault-item-info">
+            <div class="vault-item-name">UPSC Prelims 2015–2025 — Solved Papers</div>
+            <div class="vault-item-meta">Interactive · 1,100 Questions · With Explanations</div>
+          </div>
+          <div class="vault-item-action">Solve →</div>
+        </a>
+        <a href="#" class="vault-item">
+          <div class="vault-item-icon vi-quiz">📋</div>
+          <div class="vault-item-info">
+            <div class="vault-item-name">UPSC Mains GS 2019–2025 — Model Answers</div>
+            <div class="vault-item-meta">PDF · 400 pages · Topper answers + commentary</div>
+          </div>
+          <div class="vault-item-action">Download →</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ QUIZ HUB ═══════════════════ -->
+<section id="quiz">
+  <div class="section-inner">
+    <div class="section-tag reveal">Daily Quiz Hub</div>
+    <h2 class="section-heading reveal">Test Yourself. <em>Every Single Day.</em></h2>
+    <p class="section-sub reveal">Timer-based, exam-pattern MCQs with instant AI explanations. Choose your battleground.</p>
+
+    <!-- Exam Pill Filter -->
+    <div class="exam-pills reveal" style="margin-bottom: 2rem;">
+      <div class="exam-pill active">All Exams</div>
+      <div class="exam-pill">UPSC CSE</div>
+      <div class="exam-pill">JEE Main</div>
+      <div class="exam-pill">NEET</div>
+      <div class="exam-pill">SSC CGL</div>
+      <div class="exam-pill">Banking</div>
+      <div class="exam-pill">Current Affairs</div>
+    </div>
+
+    <div class="quiz-layout">
+      <!-- Quiz Panel -->
+      <div class="quiz-panel reveal-left">
+        <div class="quiz-panel-header">
+          <span class="quiz-panel-title">Daily Challenge — April 13, 2026</span>
+          <div class="quiz-timer-live">
+            <div class="timer-live-dot"></div>
+            <span id="quizCountdown">02:45</span>
+          </div>
+        </div>
+        <div class="quiz-body">
+          <div class="q-number">Question 3 of 10 · UPSC Polity</div>
+          <div class="q-text">
+            Which constitutional article empowers the President of India to impose a National Emergency? Under this article, what is the minimum parliamentary approval required to extend it?
+          </div>
+          <div class="q-options" id="quizOptions">
+            <div class="q-option" onclick="selectOption(this, false)">
+              <span class="opt-key">A</span>
+              Article 352 — Simple majority in both Houses
+            </div>
+            <div class="q-option" onclick="selectOption(this, true)">
+              <span class="opt-key">B</span>
+              Article 352 — Special majority (2/3 + absolute majority)
+            </div>
+            <div class="q-option" onclick="selectOption(this, false)">
+              <span class="opt-key">C</span>
+              Article 356 — Special majority (2/3) in both Houses
+            </div>
+            <div class="q-option" onclick="selectOption(this, false)">
+              <span class="opt-key">D</span>
+              Article 360 — Absolute majority in Lok Sabha only
+            </div>
+          </div>
+        </div>
+        <div class="quiz-footer">
+          <div class="q-progress-dots">
+            <div class="q-dot done"></div>
+            <div class="q-dot done"></div>
+            <div class="q-dot current"></div>
+            <div class="q-dot"></div><div class="q-dot"></div>
+            <div class="q-dot"></div><div class="q-dot"></div>
+            <div class="q-dot"></div><div class="q-dot"></div>
+            <div class="q-dot"></div>
+          </div>
+          <button class="btn-primary" style="padding:10px 22px;font-size:0.85rem;" onclick="nextQuestion()">
+            Next Question →
+          </button>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="quiz-sidebar reveal-right">
+        <div class="sidebar-card">
+          <div class="sidebar-card-title">🏆 Live Leaderboard</div>
+          <div class="leaderboard-row">
+            <div class="lb-rank gold-rank">1</div>
+            <div class="lb-avatar">👩</div>
+            <div class="lb-name">Priya Sharma</div>
+            <div class="lb-score">10/10</div>
+          </div>
+          <div class="leaderboard-row">
+            <div class="lb-rank">2</div>
+            <div class="lb-avatar">👨</div>
+            <div class="lb-name">Rahul Gupta</div>
+            <div class="lb-score">9/10</div>
+          </div>
+          <div class="leaderboard-row">
+            <div class="lb-rank">3</div>
+            <div class="lb-avatar">🧑</div>
+            <div class="lb-name">Ananya Singh</div>
+            <div class="lb-score">9/10</div>
+          </div>
+          <div class="leaderboard-row">
+            <div class="lb-rank">4</div>
+            <div class="lb-avatar">👦</div>
+            <div class="lb-name">Vikram Patel</div>
+            <div class="lb-score">8/10</div>
+          </div>
+          <div class="leaderboard-row">
+            <div class="lb-rank">5</div>
+            <div class="lb-avatar">👧</div>
+            <div class="lb-name">Meera Joshi</div>
+            <div class="lb-score">8/10</div>
+          </div>
+        </div>
+        <div class="sidebar-card">
+          <div class="sidebar-card-title">📅 Upcoming Mock Tests</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="background:rgba(255,184,0,0.12);border-radius:8px;padding:6px 10px;font-family:var(--font-mono);font-size:0.68rem;color:var(--gold);text-align:center;line-height:1.2;white-space:nowrap;">APR<br>15</div>
+              <div>
+                <div style="font-size:0.83rem;font-weight:600;">UPSC Prelims Full Mock #12</div>
+                <div style="font-size:0.72rem;color:var(--muted);">100 Qs · 2 Hours · 8,400 registered</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="background:rgba(79,255,176,0.1);border-radius:8px;padding:6px 10px;font-family:var(--font-mono);font-size:0.68rem;color:var(--mint);text-align:center;line-height:1.2;white-space:nowrap;">APR<br>18</div>
+              <div>
+                <div style="font-size:0.83rem;font-weight:600;">JEE Main Grand Test #5</div>
+                <div style="font-size:0.72rem;color:var(--muted);">90 Qs · 3 Hours · 6,100 registered</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="background:rgba(255,71,87,0.1);border-radius:8px;padding:6px 10px;font-family:var(--font-mono);font-size:0.68rem;color:var(--red);text-align:center;line-height:1.2;white-space:nowrap;">APR<br>20</div>
+              <div>
+                <div style="font-size:0.83rem;font-weight:600;">NEET Full Syllabus Test</div>
+                <div style="font-size:0.72rem;color:var(--muted);">180 Qs · 3.5 Hours · 9,800 registered</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-card">
+          <div class="sidebar-card-title">⚡ Your Today's Stats</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div style="background:rgba(255,184,0,0.07);border-radius:10px;padding:14px;text-align:center;">
+              <div style="font-family:var(--font-head);font-size:1.6rem;font-weight:700;color:var(--gold);">7</div>
+              <div style="font-size:0.72rem;color:var(--muted);">Correct</div>
+            </div>
+            <div style="background:rgba(255,71,87,0.07);border-radius:10px;padding:14px;text-align:center;">
+              <div style="font-family:var(--font-head);font-size:1.6rem;font-weight:700;color:var(--red);">2</div>
+              <div style="font-size:0.72rem;color:var(--muted);">Wrong</div>
+            </div>
+            <div style="background:rgba(79,255,176,0.07);border-radius:10px;padding:14px;text-align:center;">
+              <div style="font-family:var(--font-head);font-size:1.6rem;font-weight:700;color:var(--mint);">78%</div>
+              <div style="font-size:0.72rem;color:var(--muted);">Accuracy</div>
+            </div>
+            <div style="background:rgba(45,58,140,0.3);border-radius:10px;padding:14px;text-align:center;">
+              <div style="font-family:var(--font-head);font-size:1.6rem;font-weight:700;color:#8BB4FF;">42s</div>
+              <div style="font-size:0.72rem;color:var(--muted);">Avg Time</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CURRENT AFFAIRS ═══════════════════ -->
+<section id="current-affairs">
+  <div class="section-inner">
+    <div class="section-tag reveal">Current Affairs Pulse</div>
+    <h2 class="section-heading reveal"><em>Exam-Relevant</em> News. Daily. Curated.</h2>
+    <p class="section-sub reveal">Each item is tagged by exam relevance and comes with MCQ practice. Updated every day by 6 AM IST.</p>
+    <div class="ca-timeline">
+      <!-- Item 1 -->
+      <div class="ca-item reveal">
+        <div class="ca-date"><strong>13 Apr</strong>2026</div>
+        <div class="ca-dot"></div>
+        <div class="ca-card">
+          <span class="ca-tag tag-economy">Economy</span>
+          <div class="ca-headline">RBI Keeps Repo Rate Unchanged at 6.25% — MPC Decision</div>
+          <div class="ca-snippet">The Monetary Policy Committee maintained the repo rate for the third consecutive meeting, citing balanced inflation outlook. Relevant for Banking, UPSC GS3, and SSC aspirants — expect questions on MPC composition and mandate.</div>
+          <div class="ca-source">📌 PIB / RBI.org.in · Exam Tags: UPSC · IBPS · SSC</div>
+        </div>
+      </div>
+      <!-- Item 2 -->
+      <div class="ca-item reveal">
+        <div class="ca-date"><strong>12 Apr</strong>2026</div>
+        <div class="ca-dot"></div>
+        <div class="ca-card">
+          <span class="ca-tag tag-science">Science</span>
+          <div class="ca-headline">ISRO Successfully Launches NVS-02 Navigation Satellite aboard GSLV-F15</div>
+          <div class="ca-snippet">India's NavIC constellation expands with the successful deployment of NVS-02, enhancing precision navigation to 5-meter accuracy over the Indian subcontinent. High UPSC Prelims relevance — understand NavIC vs GPS differences.</div>
+          <div class="ca-source">📌 ISRO.gov.in · Exam Tags: UPSC · GATE · NDA</div>
+        </div>
+      </div>
+      <!-- Item 3 -->
+      <div class="ca-item reveal">
+        <div class="ca-date"><strong>11 Apr</strong>2026</div>
+        <div class="ca-dot"></div>
+        <div class="ca-card">
+          <span class="ca-tag tag-polity">Polity</span>
+          <div class="ca-headline">Election Commission Announces Schedule for 4 State Assembly Elections</div>
+          <div class="ca-snippet">The Election Commission of India announced election dates for Bihar, Assam, Tamil Nadu, and Haryana. Key static GK: ECI's constitutional provisions (Art. 324), NOTA, and Model Code of Conduct timeline questions are highly expected.</div>
+          <div class="ca-source">📌 eci.gov.in · Exam Tags: UPSC · SSC · State PSC</div>
+        </div>
+      </div>
+      <!-- Item 4 -->
+      <div class="ca-item reveal">
+        <div class="ca-date"><strong>10 Apr</strong>2026</div>
+        <div class="ca-dot"></div>
+        <div class="ca-card">
+          <span class="ca-tag tag-world">World</span>
+          <div class="ca-headline">India Signs ₹92,000 Cr Defense Deal with France for 26 Rafale Marine Jets</div>
+          <div class="ca-snippet">The Cabinet Committee on Security approved procurement of 26 Rafale-Marine aircraft for INS Vikrant. Questions on India-France bilateral relations, defense modernization, and INS Vikrant's significance likely for UPSC and NDA exams.</div>
+          <div class="ca-source">📌 pib.gov.in · Exam Tags: UPSC · NDA · CDS</div>
+        </div>
+      </div>
+      <!-- Item 5 -->
+      <div class="ca-item reveal">
+        <div class="ca-date"><strong>09 Apr</strong>2026</div>
+        <div class="ca-dot"></div>
+        <div class="ca-card">
+          <span class="ca-tag tag-sports">Sports</span>
+          <div class="ca-headline">Neeraj Chopra Wins Gold at World Athletics Indoor Championships 2026</div>
+          <div class="ca-snippet">India's ace javelin thrower Neeraj Chopra claimed gold with a throw of 88.42m at the World Athletics Indoor Championships in Nanjing, China — his second world indoor gold. Sports GK is consistently tested in SSC, Railway, and Banking exams.</div>
+          <div class="ca-source">📌 WorldAthletics.org · Exam Tags: SSC · Railway · Banking</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top: 2rem;" class="reveal">
+      <a href="#" class="btn-secondary">View All Current Affairs →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ PROGRESS TRACKER ═══════════════════ -->
+<section id="tracker">
+  <div class="section-inner">
+    <div class="section-tag reveal">Progress Tracker</div>
+    <h2 class="section-heading reveal">Know Exactly <em>Where You Stand.</em></h2>
+    <p class="section-sub reveal">Your personal performance dashboard. All data synced automatically. Set goals, beat them.</p>
+    <div class="tracker-grid">
+      <!-- Circular progress -->
+      <div class="tracker-card reveal-left">
+        <div class="tracker-title">📈 Subject Completion</div>
+        <div class="circ-progress-wrap">
+          <div class="circ-item">
+            <svg class="circ-svg" width="90" height="90" viewBox="0 0 90 90">
+              <circle class="circ-track" cx="45" cy="45" r="38" stroke-width="7"/>
+              <circle class="circ-fill" cx="45" cy="45" r="38" stroke="#FFB800" stroke-width="7"
+                stroke-dasharray="238.76" stroke-dashoffset="57"/>
+              <text x="45" y="46" text-anchor="middle" class="circ-label" style="transform:rotate(90deg);transform-origin:45px 45px;">76%</text>
+              <text x="45" y="57" text-anchor="middle" class="circ-sub-label" style="transform:rotate(90deg);transform-origin:45px 45px;">Polity</text>
+            </svg>
+          </div>
+          <div class="circ-item">
+            <svg class="circ-svg" width="90" height="90" viewBox="0 0 90 90">
+              <circle class="circ-track" cx="45" cy="45" r="38" stroke-width="7"/>
+              <circle class="circ-fill" cx="45" cy="45" r="38" stroke="#4FFFB0" stroke-width="7"
+                stroke-dasharray="238.76" stroke-dashoffset="95"/>
+              <text x="45" y="46" text-anchor="middle" class="circ-label" style="transform:rotate(90deg);transform-origin:45px 45px;">60%</text>
+              <text x="45" y="57" text-anchor="middle" class="circ-sub-label" style="transform:rotate(90deg);transform-origin:45px 45px;">History</text>
+            </svg>
+          </div>
+          <div class="circ-item">
+            <svg class="circ-svg" width="90" height="90" viewBox="0 0 90 90">
+              <circle class="circ-track" cx="45" cy="45" r="38" stroke-width="7"/>
+              <circle class="circ-fill" cx="45" cy="45" r="38" stroke="#FF4757" stroke-width="7"
+                stroke-dasharray="238.76" stroke-dashoffset="131"/>
+              <text x="45" y="46" text-anchor="middle" class="circ-label" style="transform:rotate(90deg);transform-origin:45px 45px;">45%</text>
+              <text x="45" y="57" text-anchor="middle" class="circ-sub-label" style="transform:rotate(90deg);transform-origin:45px 45px;">Economy</text>
+            </svg>
+          </div>
+          <div class="circ-item">
+            <svg class="circ-svg" width="90" height="90" viewBox="0 0 90 90">
+              <circle class="circ-track" cx="45" cy="45" r="38" stroke-width="7"/>
+              <circle class="circ-fill" cx="45" cy="45" r="38" stroke="#8BB4FF" stroke-width="7"
+                stroke-dasharray="238.76" stroke-dashoffset="24"/>
+              <text x="45" y="46" text-anchor="middle" class="circ-label" style="transform:rotate(90deg);transform-origin:45px 45px;">90%</text>
+              <text x="45" y="57" text-anchor="middle" class="circ-sub-label" style="transform:rotate(90deg);transform-origin:45px 45px;">Geography</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <!-- Bar chart accuracy -->
+      <div class="tracker-card reveal-right">
+        <div class="tracker-title">🎯 Quiz Accuracy by Subject</div>
+        <div class="bar-chart">
+          <div class="bar-row">
+            <div class="bar-subject">Polity</div>
+            <div class="bar-track"><div class="bar-fill" style="width:82%"></div></div>
+            <div class="bar-pct">82%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-subject">Geography</div>
+            <div class="bar-track"><div class="bar-fill" style="width:75%"></div></div>
+            <div class="bar-pct">75%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-subject">History</div>
+            <div class="bar-track"><div class="bar-fill" style="width:68%"></div></div>
+            <div class="bar-pct">68%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-subject">Economy</div>
+            <div class="bar-track"><div class="bar-fill" style="width:55%"></div></div>
+            <div class="bar-pct">55%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-subject">Environment</div>
+            <div class="bar-track"><div class="bar-fill" style="width:71%"></div></div>
+            <div class="bar-pct">71%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-subject">Curr. Affairs</div>
+            <div class="bar-track"><div class="bar-fill" style="width:88%"></div></div>
+            <div class="bar-pct">88%</div>
+          </div>
+        </div>
+      </div>
+      <!-- Heatmap -->
+      <div class="tracker-card wide reveal">
+        <div class="tracker-title">🗓️ Study Activity — Last 12 Months</div>
+        <div class="heatmap-grid" id="heatmapGrid"></div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:10px;justify-content:flex-end;">
+          <span style="font-size:0.68rem;color:var(--muted);">Less</span>
+          <div style="width:12px;height:12px;border-radius:2px;background:rgba(255,255,255,0.04)"></div>
+          <div style="width:12px;height:12px;border-radius:2px;background:rgba(255,184,0,0.2)"></div>
+          <div style="width:12px;height:12px;border-radius:2px;background:rgba(255,184,0,0.45)"></div>
+          <div style="width:12px;height:12px;border-radius:2px;background:rgba(255,184,0,0.7)"></div>
+          <div style="width:12px;height:12px;border-radius:2px;background:rgba(255,184,0,1)"></div>
+          <span style="font-size:0.68rem;color:var(--muted);">More</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ SUCCESS STORIES ═══════════════════ -->
+<section id="stories">
+  <div class="section-inner" style="margin-bottom:3rem;">
+    <div style="text-align:center;">
+      <div class="section-tag reveal">Success Stories</div>
+      <h2 class="section-heading reveal">Their Journey. <em>Your Inspiration.</em></h2>
+      <p class="section-sub reveal" style="margin:0 auto;">Real toppers. Real ranks. Real results — from right here on BYK All Exam.AI.</p>
+    </div>
+  </div>
+  <div class="stories-marquee">
+    <div class="stories-track">
+      <!-- Cards -->
+      <div class="story-card">
+        <div class="story-top">
+          <div class="story-avatar">👩‍💼</div>
+          <div><div class="story-name">Priya Sharma</div><div class="story-rank">IAS 2025 · AIR 47</div></div>
+        </div>
+        <div class="story-stars">★★★★★</div>
+        <div class="story-quote">BYK's daily current affairs and mock tests made all the difference. I completed 150 full tests on this platform before Prelims. The accuracy tracking helped me identify my Economy weakness in week 3 itself.</div>
+        <span class="story-tag">UPSC CSE</span>
+      </div>
+      <div class="story-card">
+        <div class="story-top">
+          <div class="story-avatar">👨‍🔬</div>
+          <div><div class="story-name">Arjun Nair</div><div class="story-rank">IIT Bombay · JEE Adv AIR 312</div></div>
+        </div>
+        <div class="story-stars">★★★★★</div>
+        <div class="story-quote">No coaching institute, no paid app — just BYK All Exam.AI and consistency. The adaptive quiz engine kept pushing questions in my weak zones (Organic Chemistry) until my accuracy hit 85%.</div>
+        <span class="story-tag">JEE Advanced</span>
+      </div>
+      <div class="story-card">
+        <div class="story-top">
+          <div class="story-avatar">🧑‍⚕️</div>
+          <div><div class="story-name">Kavitha Reddy</div><div class="story-rank">AIIMS Delhi · NEET 720/720</div></div>
+        </div>
+        <div class="story-stars">★★★★★</div>
+        <div class="story-quote">I scored a perfect 720 in NEET 2025 using only free resources from BYK. The video lectures in the Study Vault are better than any paid coaching class I attended. Absolutely world-class platform.</div>
+        <span class="story-tag">NEET UG</span>
+      </div>
+      <div class="story-card">
+        <div class="story-top">
+          <div class="story-avatar">👨‍💻</div>
+          <div><div class="story-name">Rahul Gupta</div><div class="story-rank">SBI PO 2025 · Merit List</div></div>
+        </div>
+        <div class="story-stars">★★★★★</div>
+        <div class="story-quote">Working full-time and preparing for banking exams simultaneously is tough. BYK's mobile-friendly interface let me practice quizzes during my lunch break. Cleared IBPS PO + SBI PO both in first attempt.</div>
+        <span class="story-tag">Banking / IBPS</span>
+      </div>
+      <div class="story-card">
+        <div class="story-top">
+          <div class="story-avatar">👩‍🏫</div>
+          <div><div class="story-name">Sunita Verma</div><div class="story-rank">SSC CGL 2025 · Grade-B Officer</div></div>
+        </div>
+        <div class="story-stars">★★★★★</div>
+        <div class="story-quote">Cleared SSC CGL on my second attempt with a massive improvement. The heatmap progress tracker showed me I was only studying 2–3 days a week. Once I hit 6 days/week consistently, my rank jumped from 18k to 4k.</div>
+        <span class="story-tag">SSC CGL</span>
+      </div>
+      <div class="story-card">
+        <div class="story-top">
+          <div class="story-avatar">👨‍🎖️</div>
+          <div><div class="story-name">Deepak Tiwari</div><div class="story-rank">NDA 2025 · AIR 89</div></div>
+        </div>
+        <div class="story-stars">★★★★★</div>
+        <div class="story-quote">I started at 15 with zero idea about exam strategy. BYK's adaptive learning flow told me exactly what to study, when, and how much. Cleared NDA at 17 with an AIR of 89. Dream come true!</div>
+        <span class="story-tag">NDA</span>
+      </div>
+      <!-- Duplicate for seamless loop -->
+      <div class="story-card">
+        <div class="story-top"><div class="story-avatar">👩‍💼</div><div><div class="story-name">Priya Sharma</div><div class="story-rank">IAS 2025 · AIR 47</div></div></div>
+        <div class="story-stars">★★★★★</div>
+        <div class="story-quote">BYK's daily current affairs and mock tests made all the difference. I completed 150 full tests on this platform before Prelims. The accuracy tracking helped me identify my Economy weakness in week 3 itself.</div>
+        <span class="story-tag">UPSC CSE</span>
+      </div>
+      <div class="story-card">
+        <div class="story-top"><div class="story-avatar">👨‍🔬</div><div><div class="story-name">Arjun Nair</div><div class="story-rank">IIT Bombay · JEE Adv AIR 312</div></div></div>
+        <div class="story-stars">★★★★★</div>
+        <div class="story-quote">No coaching institute, no paid app — just BYK All Exam.AI and consistency. The adaptive quiz engine kept pushing questions in my weak zones (Organic Chemistry) until my accuracy hit 85%.</div>
+        <span class="story-tag">JEE Advanced</span>
+      </div>
+      <div class="story-card">
+        <div class="story-top"><div class="story-avatar">🧑‍⚕️</div><div><div class="story-name">Kavitha Reddy</div><div class="story-rank">AIIMS Delhi · NEET 720/720</div></div></div>
+        <div class="story-stars">★★★★★</div>
+        <div class="story-quote">I scored a perfect 720 in NEET 2025 using only free resources from BYK. The video lectures in the Study Vault are better than any paid coaching class I attended. Absolutely world-class platform.</div>
+        <span class="story-tag">NEET UG</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FREE TOOLS GUIDE ═══════════════════ -->
+<section id="tools">
+  <div class="section-inner">
+    <div class="section-tag reveal">Zero-Cost Power Stack</div>
+    <h2 class="section-heading reveal">Build <em>Everything Free.</em> No Compromise.</h2>
+    <p class="section-sub reveal">Exact tools and embed workflows used to build this site. Step-by-step for every widget.</p>
+    <div class="tools-grid">
+      <!-- Google Forms Quiz -->
+      <div class="tool-card reveal">
+        <div class="tool-logo" style="background:rgba(66,133,244,0.15);">📋</div>
+        <div class="tool-name">Google Forms — Timer Quiz</div>
+        <div class="tool-desc">Create MCQ tests with auto-scoring, answer keys, and result sheets. Embed directly into any website page using the embed code.</div>
+        <ul class="tool-how">
+          <li>→ forms.google.com → New Blank Form</li>
+          <li>→ Add MCQ questions with correct answers</li>
+          <li>→ Settings → Make it a Quiz → Enable auto-grading</li>
+          <li>→ Send → Embed (</>) → Copy iframe code</li>
+          <li>→ Paste in your site's HTML section</li>
+        </ul>
+        <div class="pro-tip"><strong>💡 Pro Tip:</strong> Use Google Apps Script to auto-send results to a Google Sheet and build a live leaderboard for free!</div>
+      </div>
+      <!-- Jotform Timer -->
+      <div class="tool-card reveal" style="transition-delay:0.1s">
+        <div class="tool-logo" style="background:rgba(255,75,75,0.12);">⏱</div>
+        <div class="tool-name">Jotform — Countdown Timer Quiz</div>
+        <div class="tool-desc">Jotform's free plan supports a built-in countdown timer for quizzes. Best alternative to paid platforms like TestMaker.</div>
+        <ul class="tool-how">
+          <li>→ jotform.com → Create Form → Quiz Mode</li>
+          <li>→ Add Timer widget from Widget Gallery</li>
+          <li>→ Set duration (e.g., 120 mins for UPSC mock)</li>
+          <li>→ Set 'Auto-submit on timer expiry'</li>
+          <li>→ Embed → Get Embed Code → Paste in site</li>
+        </ul>
+        <div class="pro-tip"><strong>💡 Pro Tip:</strong> Jotform's conditional logic lets you show different follow-up questions based on previous answers — creating an adaptive quiz flow for free!</div>
+      </div>
+      <!-- Google Sheets Tracker -->
+      <div class="tool-card reveal" style="transition-delay:0.2s">
+        <div class="tool-logo" style="background:rgba(52,168,83,0.15);">📊</div>
+        <div class="tool-name">Google Sheets — Progress Dashboard</div>
+        <div class="tool-desc">Connect Google Forms to Sheets for auto-logging. Use Data Studio (Looker Studio) to build a visual progress dashboard embeddable on site.</div>
+        <ul class="tool-how">
+          <li>→ Forms responses auto-sync to Google Sheets</li>
+          <li>→ lookerstudio.google.com → Create Report</li>
+          <li>→ Connect your Sheet as data source</li>
+          <li>→ Add charts, scorecards, bar graphs</li>
+          <li>→ File → Embed Report → Copy iframe → Paste</li>
+        </ul>
+        <div class="pro-tip"><strong>💡 Pro Tip:</strong> Use IMPORTRANGE() in Sheets to combine data from multiple form sheets into one master dashboard for class-wide tracking!</div>
+      </div>
+      <!-- PDF Viewer -->
+      <div class="tool-card reveal" style="transition-delay:0.1s">
+        <div class="tool-logo" style="background:rgba(255,71,87,0.12);">📄</div>
+        <div class="tool-name">Google Drive PDF Viewer</div>
+        <div class="tool-desc">Host PDFs on Google Drive and embed them as in-site viewers. No downloads needed — students read directly in browser.</div>
+        <ul class="tool-how">
+          <li>→ Upload PDF to Google Drive</li>
+          <li>→ Right Click → Share → Anyone with link (Viewer)</li>
+          <li>→ Open → Copy URL → replace /view with /preview</li>
+          <li>→ Use in iframe: src="PASTE_URL"</li>
+          <li>→ Add width="100%" height="700px"</li>
+        </ul>
+        <div class="pro-tip"><strong>💡 Pro Tip:</strong> Use ?toolbar=0&navpanes=0 parameters in the URL to hide Google's UI for a cleaner embedded reading experience!</div>
+      </div>
+      <!-- Community Widget -->
+      <div class="tool-card reveal" style="transition-delay:0.2s">
+        <div class="tool-logo" style="background:rgba(79,255,176,0.1);">💬</div>
+        <div class="tool-name">Disqus / Giscus — Community Chat</div>
+        <div class="tool-desc">Add peer-to-peer discussion threads on each study material page. Disqus is free, no backend needed, 5-minute setup.</div>
+        <ul class="tool-how">
+          <li>→ disqus.com → Get Started → Create Site</li>
+          <li>→ Copy the Universal Embed Code</li>
+          <li>→ Paste in your page's footer section</li>
+          <li>→ Students can comment, upvote, reply</li>
+          <li>→ For GitHub users: giscus.app is even cleaner</li>
+        </ul>
+        <div class="pro-tip"><strong>💡 Pro Tip:</strong> Create a dedicated Telegram group (free) and embed a Telegram widget on your site as a real-time chat alternative to Disqus!</div>
+      </div>
+      <!-- Hosting Platform -->
+      <div class="tool-card reveal" style="transition-delay:0.3s">
+        <div class="tool-logo" style="background:rgba(45,58,140,0.3);">🚀</div>
+        <div class="tool-name">Hosting: Netlify / Vercel / GitHub Pages</div>
+        <div class="tool-desc">Host this entire website 100% free with SSL, CDN, and custom domain support. Upload files and go live in under 2 minutes.</div>
+        <ul class="tool-how">
+          <li>→ netlify.com → New Site → Drag & Drop HTML folder</li>
+          <li>→ OR: github.com → New Repo → Upload files</li>
+          <li>→ Settings → Pages → Source: main → Save</li>
+          <li>→ Site live at username.github.io/repo-name</li>
+          <li>→ Add free .in domain via Freenom or buy ₹99/yr</li>
+        </ul>
+        <div class="pro-tip"><strong>💡 Pro Tip:</strong> Use Netlify Forms (free) for lead capture. No backend required — form submissions go directly to your email and Netlify dashboard!</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 24H ROADMAP ═══════════════════ -->
+<section id="roadmap" style="padding-bottom: 60px;">
+  <div class="section-inner">
+    <div class="section-tag reveal">24-Hour Launch Blueprint</div>
+    <h2 class="section-heading reveal">From Zero to <em>Live</em> — In 24 Hours.</h2>
+    <p class="section-sub reveal">Follow this exact sequence. No code required. No money spent.</p>
+    <div class="roadmap-steps reveal">
+      <div class="roadmap-step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-time">⏰ Hours 0–3 — Foundation</div>
+          <div class="step-title">Set Up Hosting + Download This Template</div>
+          <div class="step-detail">Create a GitHub account and repository. Upload this downloaded HTML file to your repo. Enable GitHub Pages in Settings. Your site is live in 60 seconds at yourusername.github.io. Alternatively, drag-drop to Netlify for instant live URL. Customize logo, exam name, and color scheme in the CSS :root variables block (5-minute edit).</div>
+          <div class="step-tools">
+            <span class="step-tool-tag">GitHub Pages</span>
+            <span class="step-tool-tag">Netlify Free</span>
+            <span class="step-tool-tag">VS Code (free)</span>
+          </div>
+        </div>
+      </div>
+      <div class="roadmap-step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-time">⏰ Hours 3–7 — Content</div>
+          <div class="step-title">Upload Study Materials to Google Drive</div>
+          <div class="step-detail">Create a structured Google Drive folder: /BYK-Exam/UPSC/, /JEE/, /Notes/, /PYQs/. Upload all PDFs and share as "Anyone with link - Viewer". Generate preview embed URLs for each PDF. Update the vault-item links in the HTML. Upload current affairs data into a Google Sheet for future automation.</div>
+          <div class="step-tools">
+            <span class="step-tool-tag">Google Drive</span>
+            <span class="step-tool-tag">Google Sheets</span>
+            <span class="step-tool-tag">PDF Preview URL</span>
+          </div>
+        </div>
+      </div>
+      <div class="roadmap-step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-time">⏰ Hours 7–13 — Quiz Engine</div>
+          <div class="step-title">Build Your First 100-Question Mock Test</div>
+          <div class="step-detail">Open Google Forms. Set Quiz mode ON. Add 100 MCQ questions with correct answer keys and point values. Enable "Show correct answers after submission". Set response limit if needed. Copy the embed code and replace the quiz iframe placeholder in the HTML. Set up a Google Apps Script trigger to log results to Sheets automatically — no coding knowledge needed (copy from Script Gallery).</div>
+          <div class="step-tools">
+            <span class="step-tool-tag">Google Forms</span>
+            <span class="step-tool-tag">Apps Script</span>
+            <span class="step-tool-tag">Jotform (Timer)</span>
+          </div>
+        </div>
+      </div>
+      <div class="roadmap-step">
+        <div class="step-num">4</div>
+        <div>
+          <div class="step-time">⏰ Hours 13–20 — Community</div>
+          <div class="step-title">Launch Student Community + Progress Dashboard</div>
+          <div class="step-detail">Create a Telegram channel (BYK All Exam – Official) and community group. Add the Telegram widget embed to the site footer. Set up Looker Studio dashboard connected to your Google Sheets quiz data — create scorecards, bar charts, and rank tables. Share the dashboard URL on Telegram. Create a Disqus account and add the embed code to the study vault page for per-topic Q&A threads.</div>
+          <div class="step-tools">
+            <span class="step-tool-tag">Telegram Widget</span>
+            <span class="step-tool-tag">Looker Studio</span>
+            <span class="step-tool-tag">Disqus Free</span>
+          </div>
+        </div>
+      </div>
+      <div class="roadmap-step">
+        <div class="step-num">5</div>
+        <div>
+          <div class="step-time">⏰ Hours 20–24 — Launch 🚀</div>
+          <div class="step-title">Go Live + First 100 Students in 24 Hours</div>
+          <div class="step-detail">Add a custom domain (buy .in for ₹99/year from GoDaddy or use free subdomain). Submit sitemap to Google Search Console for SEO indexing. Post your launch announcement on WhatsApp groups, Reddit r/UPSC, r/JEE, and relevant Telegram exam groups. Offer a "First 500 Registrations Get Topper's Notes PDF" lead magnet using a Google Form email capture. Set up a free Mailchimp or Brevo account for email follow-ups. You're live, you're growing!</div>
+          <div class="step-tools">
+            <span class="step-tool-tag">Google Search Console</span>
+            <span class="step-tool-tag">Mailchimp Free</span>
+            <span class="step-tool-tag">Reddit / Telegram</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ COLOR PALETTE ═══════════════════ -->
+<section id="palette">
+  <div style="text-align:center;max-width:800px;margin:0 auto 3rem;">
+    <div class="section-tag">Design System</div>
+    <h2 class="section-heading">The <em>Premium Color Palette</em> — All Hex Codes</h2>
+  </div>
+  <div class="palette-row">
+    <div class="palette-swatch">
+      <div class="swatch-color" style="background:#0A0F2E;"></div>
+      <div class="swatch-info"><div class="swatch-name">Deep Navy</div><div class="swatch-hex">#0A0F2E</div><div class="swatch-use">Primary Background</div></div>
+    </div>
+    <div class="palette-swatch">
+      <div class="swatch-color" style="background:#1A2252;"></div>
+      <div class="swatch-info"><div class="swatch-name">Navy Mid</div><div class="swatch-hex">#1A2252</div><div class="swatch-use">Section Backgrounds</div></div>
+    </div>
+    <div class="palette-swatch">
+      <div class="swatch-color" style="background:#2D3A8C;"></div>
+      <div class="swatch-info"><div class="swatch-name">Royal Blue</div><div class="swatch-hex">#2D3A8C</div><div class="swatch-use">Cards / Accents</div></div>
+    </div>
+    <div class="palette-swatch">
+      <div class="swatch-color" style="background:#FFB800;"></div>
+      <div class="swatch-info"><div class="swatch-name">Gold</div><div class="swatch-hex">#FFB800</div><div class="swatch-use">Primary Accent / CTAs</div></div>
+    </div>
+    <div class="palette-swatch">
+      <div class="swatch-color" style="background:#4FFFB0;"></div>
+      <div class="swatch-info"><div class="swatch-name">Neon Mint</div><div class="swatch-hex">#4FFFB0</div><div class="swatch-use">Highlights / Tags</div></div>
+    </div>
+    <div class="palette-swatch">
+      <div class="swatch-color" style="background:#F8F9FF;border:1px solid rgba(255,255,255,0.1);"></div>
+      <div class="swatch-info"><div class="swatch-name">Ice White</div><div class="swatch-hex">#F8F9FF</div><div class="swatch-use">Text / Headings</div></div>
+    </div>
+    <div class="palette-swatch">
+      <div class="swatch-color" style="background:#8A94B8;"></div>
+      <div class="swatch-info"><div class="swatch-name">Muted Slate</div><div class="swatch-hex">#8A94B8</div><div class="swatch-use">Body / Descriptions</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CTA ═══════════════════ -->
+<section id="cta">
+  <div class="cta-inner">
+    <div class="section-tag" style="justify-content:center;">Start Today</div>
+    <div class="cta-headline">Your Selection is <em>One Decision</em> Away.</div>
+    <p class="cta-sub">
+      2.1 lakh students started exactly where you are right now. They chose to act, not wait. The platform is free. The resources are ready. The only question is — will you begin today?
+    </p>
+    <div class="cta-buttons">
+      <a href="#quiz" class="btn-primary" style="font-size:1.05rem;padding:18px 36px;">
+        🚀 Start Free Mock Test Now
+      </a>
+      <a href="#vault" class="btn-secondary" style="font-size:1rem;padding:17px 32px;">
+        📚 Browse Study Vault
+      </a>
+    </div>
+    <p style="font-size:0.78rem;color:var(--muted);margin-top:1.5rem;">
+      ✅ 100% Free · No Registration Required · Works on Mobile
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">BYK <span>All Exam</span>.AI</div>
+      <p class="footer-desc">India's most comprehensive free competitive exam preparation ecosystem. Built for every aspirant, accessible to all.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Exams</div>
+      <ul class="footer-links">
+        <li><a href="#">UPSC CSE</a></li>
+        <li><a href="#">JEE Main / Advanced</a></li>
+        <li><a href="#">NEET UG</a></li>
+        <li><a href="#">SSC CGL / CHSL</a></li>
+        <li><a href="#">Banking / IBPS</a></li>
+        <li><a href="#">State PSC</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Resources</div>
+      <ul class="footer-links">
+        <li><a href="#">Study Vault</a></li>
+        <li><a href="#">Daily Quiz</a></li>
+        <li><a href="#">Mock Tests</a></li>
+        <li><a href="#">Current Affairs</a></li>
+        <li><a href="#">PYQ Bank</a></li>
+        <li><a href="#">Video Lectures</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Platform</div>
+      <ul class="footer-links">
+        <li><a href="#">About BYK</a></li>
+        <li><a href="#">Topper Stories</a></li>
+        <li><a href="#">Community</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Telegram Channel</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 BYK All Exam.AI · Built with ❤️ for 2.1 Lakh+ Aspirants · 100% Free Forever</div>
+    <div class="footer-socials">
+      <a href="#" class="social-btn">📱</a>
+      <a href="#" class="social-btn">✈️</a>
+      <a href="#" class="social-btn">📺</a>
+      <a href="#" class="social-btn">🐦</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════ JAVASCRIPT ═══════════════════ -->
+<script>
+// ── Custom Cursor ──
+const cursor = document.getElementById('cursor');
+const trail = document.getElementById('cursor-trail');
+let mouseX = 0, mouseY = 0, trailX = 0, trailY = 0;
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  cursor.style.transform = `translate(${mouseX - 6}px, ${mouseY - 6}px)`;
+});
+function animateTrail() {
+  trailX += (mouseX - trailX) * 0.12;
+  trailY += (mouseY - trailY) * 0.12;
+  trail.style.transform = `translate(${trailX - 16}px, ${trailY - 16}px)`;
+  requestAnimationFrame(animateTrail);
+}
+animateTrail();
+
+// ── Navbar scroll ──
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ── Mobile Nav ──
+function toggleMobileNav() {
+  document.getElementById('mobileNav').classList.toggle('open');
+}
+
+// ── Hero Timer ──
+let heroSecs = 6453;
+setInterval(() => {
+  heroSecs--;
+  const h = Math.floor(heroSecs / 3600);
+  const m = Math.floor((heroSecs % 3600) / 60);
+  const s = heroSecs % 60;
+  document.getElementById('heroTimer').textContent =
+    `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}, 1000);
+
+// ── Hero option select ──
+function selectHeroOption(el) {
+  document.querySelectorAll('.option-item').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+// ── Quiz countdown ──
+let quizSecs = 165;
+setInterval(() => {
+  quizSecs--;
+  const m = Math.floor(quizSecs / 60);
+  const s = quizSecs % 60;
+  document.getElementById('quizCountdown').textContent =
+    `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  if (quizSecs <= 30) {
+    document.getElementById('quizCountdown').style.color = 'var(--red)';
+  }
+}, 1000);
+
+// ── Quiz option select ──
+let answered = false;
+function selectOption(el, isCorrect) {
+  if (answered) return;
+  answered = true;
+  document.querySelectorAll('.q-option').forEach(o => {
+    o.style.pointerEvents = 'none';
+    if (o.dataset.correct === 'true' || o === el && isCorrect) {
+      // handled below
+    }
+  });
+  if (isCorrect) {
+    el.classList.add('correct');
+  } else {
+    el.classList.add('wrong');
+    document.querySelectorAll('.q-option')[1].classList.add('correct');
+  }
+}
+// tag correct answer
+document.querySelectorAll('.q-option')[1].dataset.correct = 'true';
+
+function nextQuestion() {
+  answered = false;
+  document.querySelectorAll('.q-option').forEach(o => {
+    o.classList.remove('selected','correct','wrong');
+    o.style.pointerEvents = '';
+  });
+  // Cycle through sample questions
+  const questions = [
+    {
+      num: 'Question 4 of 10 · UPSC History',
+      text: 'The "Doctrine of Lapse" was introduced by which Governor-General of India, and it was primarily responsible for the annexation of which state in 1856?',
+      opts: ['Lord Cornwallis — Awadh', 'Lord Dalhousie — Awadh ✓', 'Lord Canning — Punjab', 'Lord Wellesley — Mysore']
+    },
+    {
+      num: 'Question 5 of 10 · UPSC Economy',
+      text: 'Which of the following correctly describes the "Twin Balance Sheet Problem" in the context of the Indian economy?',
+      opts: ['High NPAs of banks + over-leveraged corporates ✓', 'Current account deficit + fiscal deficit', 'Low FDI + declining exports', 'Rising inflation + unemployment']
+    }
+  ];
+  const q = questions[Math.floor(Math.random() * questions.length)];
+  document.querySelector('.q-number').textContent = q.num;
+  document.querySelector('.q-text').textContent = q.text;
+  document.querySelectorAll('.q-option').forEach((o, i) => {
+    o.innerHTML = `<span class="opt-key">${'ABCD'[i]}</span>${q.opts[i].replace(' ✓','')}`;
+    if (q.opts[i].includes('✓')) o.dataset.correct = 'true';
+    else delete o.dataset.correct;
+  });
+  document.querySelectorAll('.q-option').forEach((o, i) => {
+    const correct = q.opts[i].includes('✓');
+    o.onclick = () => selectOption(o, correct);
+  });
+}
+
+// ── Animated counters ──
+function animateCount(el) {
+  const target = parseInt(el.dataset.count);
+  const duration = 2000;
+  const start = performance.now();
+  const update = (time) => {
+    const progress = Math.min((time - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(eased * target).toLocaleString('en-IN');
+    if (progress < 1) requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+}
+
+// ── Heatmap generation ──
+function buildHeatmap() {
+  const grid = document.getElementById('heatmapGrid');
+  if (!grid) return;
+  const cells = 52 * 7;
+  const classes = ['', 'h1', 'h2', 'h3', 'h4'];
+  for (let i = 0; i < cells; i++) {
+    const cell = document.createElement('div');
+    cell.className = 'heatmap-cell';
+    // Simulate realistic study pattern
+    const rand = Math.random();
+    if (rand > 0.85) cell.classList.add('h4');
+    else if (rand > 0.65) cell.classList.add('h3');
+    else if (rand > 0.45) cell.classList.add('h2');
+    else if (rand > 0.3) cell.classList.add('h1');
+    grid.appendChild(cell);
+  }
+}
+buildHeatmap();
+
+// ── Intersection Observer for reveal + counters ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      // Animate counters
+      entry.target.querySelectorAll('[data-count]').forEach(animateCount);
+      const countSelf = entry.target.dataset.count;
+      if (countSelf) animateCount(entry.target);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+document.querySelectorAll('[data-count]').forEach(el => observer.observe(el));
+
+// ── Vault filter ──
+function filterVault(exam) {
+  document.querySelectorAll('.vault-nav-item').forEach(item => {
+    item.classList.remove('active');
+    if (item.onclick.toString().includes(exam)) item.classList.add('active');
+  });
+}
+
+// ── Pill filter ──
+document.querySelectorAll('.exam-pill').forEach(pill => {
+  pill.addEventListener('click', function() {
+    document.querySelectorAll('.exam-pill').forEach(p => p.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+// ── Smooth scroll for all anchor links ──
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// ── Stagger animation for story cards ──
+document.querySelectorAll('.story-card').forEach((card, i) => {
+  card.style.transitionDelay = `${i * 0.05}s`;
+});
+</script>
+</body>
+</html>
