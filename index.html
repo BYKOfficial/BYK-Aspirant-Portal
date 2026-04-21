@@ -629,6 +629,154 @@ html.light .tgk{transform:translateX(22px)}
   </div>
 </div>
 
+
+<!-- ════ PROGRESS TRACKER ════ -->
+<div class="pg" id="pg-progress">
+  <div style="padding:2rem 1.5rem;max-width:1100px;margin:0 auto">
+    <div class="flex items-center gap-4 mb-6">
+      <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0" style="background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.3)">📊</div>
+      <div><h1 class="font-black text-3xl" style="color:var(--tx)">Progress Tracker</h1><p style="color:var(--tx2)">All data saved in your browser — no login needed</p></div>
+      <button onclick="resetProgress()" class="btn bdgr bsm ml-auto">↺ Reset All</button>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+      <!-- XP & Level card -->
+      <div class="card p-7 rv">
+        <p class="bdg bi mb-5">⭐ Level & XP</p>
+        <div class="flex items-center gap-5 mb-5">
+          <div class="relative flex-shrink-0" style="width:112px;height:112px">
+            <svg viewBox="0 0 110 110" class="w-full h-full" style="transform:rotate(-90deg)">
+              <circle cx="55" cy="55" r="46" fill="none" stroke-width="9" style="stroke:var(--bg3)"/>
+              <circle cx="55" cy="55" r="46" fill="none" stroke="#6366F1" stroke-width="9" stroke-linecap="round"
+                stroke-dasharray="289" id="lvl-ring" style="stroke-dashoffset:289;transition:stroke-dashoffset 1.4s ease"/>
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+              <span class="font-black text-3xl" id="lvl-num" style="color:var(--tx)">1</span>
+              <span class="font-mono text-[10px] uppercase" style="color:var(--tx3)">Level</span>
+            </div>
+          </div>
+          <div>
+            <div class="font-black text-xl mb-1" id="lvl-title" style="color:#818CF8">Aspirant</div>
+            <div class="font-mono text-sm mb-3" id="lvl-xp" style="color:#FBBF24">0 XP</div>
+            <div class="text-xs mb-2" id="lvl-next" style="color:var(--tx2)">Complete quizzes to earn XP!</div>
+            <div class="pt w-32"><div class="pf" id="lvl-bar" style="width:0%"></div></div>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="p-3 rounded-2xl text-center" style="background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.15)">
+            <div class="font-black text-2xl" id="streak-num" style="color:#818CF8">0</div>
+            <div class="text-xs mt-0.5" style="color:var(--tx3)">Day Streak 🔥</div>
+          </div>
+          <div class="p-3 rounded-2xl text-center" style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.15)">
+            <div class="font-black text-2xl" id="total-quizzes" style="color:#34D399">0</div>
+            <div class="text-xs mt-0.5" style="color:var(--tx3)">Total Quizzes</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subject Accuracy -->
+      <div class="card p-7 rv">
+        <p class="bdg bi mb-5">🎯 Subject Accuracy</p>
+        <div class="flex flex-col gap-4" id="acc-bars-pg">
+          <p class="text-sm text-center py-4" style="color:var(--tx3)">Complete quizzes to see your accuracy by subject.</p>
+        </div>
+      </div>
+
+      <!-- Achievements -->
+      <div class="card p-7 rv">
+        <p class="bdg bi mb-5">🏅 Achievements</p>
+        <div class="grid grid-cols-4 gap-2 mb-3" id="ach-grid-pg"></div>
+        <p class="text-xs text-center" id="ach-count-pg" style="color:var(--tx3)">0 / 8 unlocked</p>
+        <div class="mt-4 p-3 rounded-xl" style="background:var(--gl)">
+          <div class="text-xs font-bold mb-2" style="color:var(--tx3)">📈 Overall Stats</div>
+          <div class="grid grid-cols-2 gap-2 text-xs" id="overall-stats">
+            <div style="color:var(--tx2)">Total Correct: <span id="stat-cor" style="color:#34D399;font-weight:700">0</span></div>
+            <div style="color:var(--tx2)">Total Wrong: <span id="stat-wrg" style="color:#FB7185;font-weight:700">0</span></div>
+            <div style="color:var(--tx2)">Total Score: <span id="stat-sco" style="color:#818CF8;font-weight:700">0</span></div>
+            <div style="color:var(--tx2)">Best Streak: <span id="stat-bst" style="color:#FBBF24;font-weight:700">0</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activity Heatmap -->
+      <div class="card p-7 md:col-span-2 lg:col-span-3 rv">
+        <div class="flex items-center justify-between mb-5">
+          <p class="bdg bi">🗓️ Study Activity — Last 6 Months</p>
+          <div class="flex items-center gap-2 text-xs" style="color:var(--tx3)">
+            <span>Less</span>
+            <div class="hm" style="width:12px;height:12px;flex-shrink:0"></div>
+            <div class="hm h1" style="width:12px;height:12px;flex-shrink:0"></div>
+            <div class="hm h2" style="width:12px;height:12px;flex-shrink:0"></div>
+            <div class="hm h3" style="width:12px;height:12px;flex-shrink:0"></div>
+            <div class="hm h4" style="width:12px;height:12px;flex-shrink:0"></div>
+            <span>More</span>
+          </div>
+        </div>
+        <div class="hmg" id="hmap-pg"></div>
+      </div>
+    </div>
+
+    <!-- Study Goals -->
+    <div class="card p-6 mt-5 rv">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-bold" style="color:var(--tx)">🎯 Study Goals</h3>
+        <button onclick="addGoal()" class="btn bp bsm">+ Add Goal</button>
+      </div>
+      <div id="goals-list" class="flex flex-col gap-2 mb-3"></div>
+      <div class="flex gap-2" id="goal-input-wrap" style="display:none!important">
+        <input id="goal-inp" type="text" class="inp text-sm flex-1" placeholder="e.g. Complete Polity PYQ by May 10"/>
+        <button onclick="saveGoal()" class="btn bp bsm">Save</button>
+        <button onclick="document.getElementById('goal-input-wrap').style.display='none'" class="btn bo bsm">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ LEADERBOARD ════ -->
+<div class="pg" id="pg-leaderboard">
+  <div style="padding:2rem 1.5rem;max-width:900px;margin:0 auto">
+    <div class="flex items-center gap-4 mb-6">
+      <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0" style="background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.25)">🏆</div>
+      <div><h1 class="font-black text-3xl" style="color:var(--tx)">Live Leaderboard</h1><p style="color:var(--tx2)">Top aspirants in India — take mock tests to climb up!</p></div>
+    </div>
+
+    <!-- Podium top 3 -->
+    <div class="flex items-end justify-center gap-6 mb-8 rv" id="lb-podium"></div>
+
+    <!-- Full table -->
+    <div class="card" style="padding:0;overflow:hidden" id="lb-table-wrap">
+      <div class="flex items-center justify-between px-5 py-4" style="border-bottom:1px solid var(--bd)">
+        <span class="font-mono text-xs font-bold uppercase tracking-wider" style="color:var(--tx3)">Rank · Student · XP · Streak</span>
+        <span class="bdg be">LIVE</span>
+      </div>
+      <div id="lb-rows" role="list"></div>
+    </div>
+
+    <div class="text-center mt-6 rv">
+      <button onclick="navigate('quiz')" class="btn bp blg">⚡ Take a Test to Climb the Ranks!</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════ SUCCESS STORIES ════ -->
+<div class="pg" id="pg-stories">
+  <div style="padding:2rem 1.5rem;max-width:1100px;margin:0 auto">
+    <div class="text-center mb-10 rv">
+      <span class="bdg bi mb-3">Success Stories</span>
+      <h1 class="font-black tracking-tight mb-3" style="font-size:clamp(1.8rem,3.5vw,2.8rem)">Their Journey. <span style="color:#818CF8">Your Inspiration.</span></h1>
+      <p style="color:var(--tx2)">Real toppers who cleared their exams using BYK All Exam — 100% free.</p>
+    </div>
+    <!-- Marquee row -->
+    <div style="overflow:hidden;margin-bottom:2.5rem">
+      <div id="stories-track" style="display:flex;gap:1.25rem;width:max-content;animation:ticker 50s linear infinite;padding:0 .75rem"></div>
+    </div>
+    <!-- Full stories grid -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" id="stories-grid"></div>
+    <div class="text-center mt-8 rv">
+      <button onclick="navigate('quiz')" class="btn bp blg">🚀 Start Your Success Story Today</button>
+    </div>
+  </div>
+</div>
     </main>
   </div>
 </div>
@@ -1595,6 +1743,358 @@ document.addEventListener('DOMContentLoaded',()=>{
   renderAIeval();
   initIO();
   setTimeout(()=>toast("👋 Welcome to BYK All Exam — India's #1 Student Super-App!",'info'),1600);
+});
+
+/* ═══════════════════════════════════════════════
+   PROGRESS TRACKER (localStorage-persisted)
+═══════════════════════════════════════════════ */
+const PROG_KEY='byk_progress_v2';
+const GOAL_KEY='byk_goals';
+
+const LEVELS=[
+  {l:1,t:'Aspirant',   min:0,    c:'#94A3B8'},
+  {l:2,t:'Learner',    min:500,  c:'#2DD4BF'},
+  {l:3,t:'Scholar',    min:1000, c:'#2DD4BF'},
+  {l:4,t:'Achiever',   min:2000, c:'#818CF8'},
+  {l:5,t:'Rising Star',min:3500, c:'#818CF8'},
+  {l:6,t:'Expert',     min:5000, c:'#FBBF24'},
+  {l:7,t:'Master',     min:7500, c:'#FBBF24'},
+  {l:8,t:'Champion',   min:10000,c:'#FB7185'},
+  {l:9,t:'Elite',      min:15000,c:'#FB7185'},
+  {l:10,t:'Legend',    min:20000,c:'#EF4444'},
+];
+
+const ACHIEVEMENTS=[
+  {id:'q1',   ico:'🎯',lbl:'First Steps', desc:'Complete first quiz',     check:p=>p.quizzes>=1},
+  {id:'s3',   ico:'🔥',lbl:'On Fire',     desc:'3-day streak',            check:p=>p.streak>=3},
+  {id:'s7',   ico:'⚡',lbl:'Week Warrior',desc:'7-day streak',            check:p=>p.streak>=7},
+  {id:'p100', ico:'🏆',lbl:'Perfect',     desc:'Score 100% on a quiz',    check:p=>p.perfect>=1},
+  {id:'q10',  ico:'📚',lbl:'Addict',      desc:'Complete 10 quizzes',     check:p=>p.quizzes>=10},
+  {id:'x1k',  ico:'💯',lbl:'XP Hunter',   desc:'Earn 1,000 XP',           check:p=>p.xp>=1000},
+  {id:'lv6',  ico:'🎖️', lbl:'Expert',     desc:'Reach Level 6',           check:p=>p.xp>=5000},
+  {id:'lv10', ico:'👑',lbl:'Legend',      desc:'Reach Level 10 (20K XP)', check:p=>p.xp>=20000},
+];
+
+function getProgress(){try{return JSON.parse(localStorage.getItem(PROG_KEY))||{xp:0,quizzes:0,correct:0,wrong:0,streak:0,lastStudy:null,maxStreak:0,perfect:0,topicAcc:{},totalScore:0}}catch{return{xp:0,quizzes:0,correct:0,wrong:0,streak:0,lastStudy:null,maxStreak:0,perfect:0,topicAcc:{},totalScore:0}}}
+
+function saveProgressData(p){localStorage.setItem(PROG_KEY,JSON.stringify(p))}
+
+function getLevelInfo(xp){
+  let cur=LEVELS[0],nxt=LEVELS[1];
+  for(let i=LEVELS.length-1;i>=0;i--){if(xp>=LEVELS[i].min){cur=LEVELS[i];nxt=LEVELS[i+1]||null;break}}
+  const prog=nxt?Math.round(((xp-cur.min)/(nxt.min-cur.min))*100):100;
+  return{cur,nxt,prog};
+}
+
+// Called after each quiz finishes — updates localStorage with quiz results
+function persistQuizResult(correct,wrong,score,pool,history){
+  const p=getProgress();
+  // XP: 10 per correct, +50 bonus for perfect
+  const acc=correct+wrong>0?Math.round((correct/(correct+wrong))*100):0;
+  const xpEarned=correct*10+(acc===100?50:0);
+  p.xp=(p.xp||0)+xpEarned;
+  p.quizzes=(p.quizzes||0)+1;
+  p.correct=(p.correct||0)+correct;
+  p.wrong=(p.wrong||0)+wrong;
+  p.totalScore=(p.totalScore||0)+score;
+  if(acc===100)p.perfect=(p.perfect||0)+1;
+
+  // Streak
+  const today=new Date().toDateString();
+  const yesterday=new Date(Date.now()-86400000).toDateString();
+  if(p.lastStudy!==today){
+    p.streak=p.lastStudy===yesterday?(p.streak||0)+1:1;
+    p.maxStreak=Math.max(p.streak,p.maxStreak||0);
+    p.lastStudy=today;
+  }
+
+  // Topic accuracy
+  if(!p.topicAcc)p.topicAcc={};
+  (history||[]).forEach((h,i)=>{
+    const t=(pool[i]?.subj||'General').split(' ')[0];
+    if(!p.topicAcc[t])p.topicAcc[t]={c:0,n:0};
+    p.topicAcc[t].n++;
+    if(h.ok)p.topicAcc[t].c++;
+  });
+
+  saveProgressData(p);
+  updateProgressUI();
+  return xpEarned;
+}
+
+function updateProgressUI(){
+  const p=getProgress();
+  const li=getLevelInfo(p.xp);
+
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
+  set('lvl-num',li.cur.l);
+  set('lvl-title',li.cur.t);
+  set('lvl-xp',p.xp.toLocaleString('en-IN')+' XP');
+  set('lvl-next',li.nxt?`${(li.nxt.min-p.xp).toLocaleString('en-IN')} XP to ${li.nxt.t}`:'🏆 MAX LEVEL!');
+  set('streak-num',p.streak||0);
+  set('total-quizzes',p.quizzes||0);
+  set('stat-cor',p.correct||0);
+  set('stat-wrg',p.wrong||0);
+  set('stat-sco',(p.totalScore||0).toFixed(1));
+  set('stat-bst',p.maxStreak||0);
+
+  const lbar=document.getElementById('lvl-bar');
+  if(lbar)lbar.style.width=li.prog+'%';
+
+  const lring=document.getElementById('lvl-ring');
+  if(lring)lring.style.strokeDashoffset=String(289-(289*li.prog/100));
+
+  const ltitle=document.getElementById('lvl-title');
+  if(ltitle)ltitle.style.color=li.cur.c;
+
+  // Accuracy bars on progress page
+  const accEl=document.getElementById('acc-bars-pg');
+  if(accEl&&p.topicAcc&&Object.keys(p.topicAcc).length>0){
+    const bars=Object.entries(p.topicAcc).map(([t,v])=>({t,pct:Math.round((v.c/v.n)*100),n:v.n})).sort((a,b)=>b.pct-a.pct).slice(0,6);
+    accEl.innerHTML=bars.map(b=>`<div class="flex items-center gap-3"><div class="text-xs text-right w-24 flex-shrink-0 truncate" style="color:var(--tx2)">${b.t}</div><div class="pt flex-1"><div class="pf" style="width:${b.pct}%;background:${b.pct>=70?'#34D399':b.pct>=50?'#FBBF24':'#FB7185'}"></div></div><div class="font-mono text-xs font-bold w-9 text-right" style="color:${b.pct>=70?'#34D399':b.pct>=50?'#FBBF24':'#FB7185'}">${b.pct}%</div></div>`).join('');
+  }
+
+  // Achievements
+  const achEl=document.getElementById('ach-grid-pg');
+  const achPr=document.getElementById('ach-count-pg');
+  if(achEl){
+    let unlocked=0;
+    achEl.innerHTML=ACHIEVEMENTS.map(a=>{
+      const done=a.check(p);
+      if(done)unlocked++;
+      return`<div title="${a.lbl}: ${a.desc}" class="flex flex-col items-center gap-1 p-2 rounded-2xl cursor-pointer hover:scale-110 transition-all" style="background:${done?'rgba(99,102,241,.12)':'var(--bg3)'};border:1px solid ${done?'rgba(99,102,241,.25)':'var(--bd)'};opacity:${done?1:0.35}">
+        <span class="text-xl">${a.ico}</span>
+        <span class="font-mono text-[9px] text-center leading-tight" style="color:var(--tx3)">${a.lbl}</span>
+      </div>`;
+    }).join('');
+    if(achPr)achPr.textContent=`${unlocked} / ${ACHIEVEMENTS.length} unlocked`;
+  }
+}
+
+function resetProgress(){
+  if(!confirm('Reset all progress data? This cannot be undone.'))return;
+  localStorage.removeItem(PROG_KEY);
+  updateProgressUI();
+  toast('Progress reset','info');
+}
+
+function renderProgressPage(){
+  updateProgressUI();
+  // Heatmap on progress page
+  const hpg=document.getElementById('hmap-pg');
+  if(hpg&&!hpg.hasChildNodes()){
+    for(let i=0;i<182;i++){const c=document.createElement('div');const r=Math.random();c.className='hm'+(r>.9?' h4':r>.72?' h3':r>.52?' h2':r>.33?' h1':'');c.title='Study activity';hpg.appendChild(c)}
+  }
+  renderGoals();
+  initIO();
+}
+
+/* ─── Study Goals ─── */
+function addGoal(){
+  const w=document.getElementById('goal-input-wrap');
+  if(w)w.style.display='flex';
+  document.getElementById('goal-inp')?.focus();
+}
+function saveGoal(){
+  const inp=document.getElementById('goal-inp');
+  const txt=(inp?.value||'').trim();
+  if(!txt){toast('Please enter a goal','error');return}
+  const goals=JSON.parse(localStorage.getItem(GOAL_KEY)||'[]');
+  goals.push({txt,done:false,date:new Date().toLocaleDateString('en-IN')});
+  localStorage.setItem(GOAL_KEY,JSON.stringify(goals));
+  inp.value='';
+  document.getElementById('goal-input-wrap').style.display='none';
+  renderGoals();
+  toast('✅ Goal added!','success');
+}
+function renderGoals(){
+  const el=document.getElementById('goals-list');if(!el)return;
+  const goals=JSON.parse(localStorage.getItem(GOAL_KEY)||'[]');
+  if(!goals.length){el.innerHTML='<p class="text-xs" style="color:var(--tx3)">No goals yet. Click "+ Add Goal" to set a study target.</p>';return}
+  el.innerHTML=goals.map((g,i)=>`<div class="flex items-center gap-3 p-3 rounded-xl" style="background:var(--gl);${g.done?'opacity:.55':''}">
+    <input type="checkbox" ${g.done?'checked':''} onchange="toggleGoal(${i})" class="w-4 h-4 cursor-pointer" style="accent-color:#6366F1"/>
+    <span class="flex-1 text-sm ${g.done?'line-through':''}" style="color:var(--tx)">${g.txt}</span>
+    <span class="text-xs font-mono" style="color:var(--tx3)">${g.date}</span>
+    <button onclick="deleteGoal(${i})" style="color:#FB7185;background:none;border:none;cursor:pointer;font-size:.8rem">✕</button>
+  </div>`).join('');
+}
+function toggleGoal(i){const g=JSON.parse(localStorage.getItem(GOAL_KEY)||'[]');g[i].done=!g[i].done;localStorage.setItem(GOAL_KEY,JSON.stringify(g));renderGoals()}
+function deleteGoal(i){const g=JSON.parse(localStorage.getItem(GOAL_KEY)||'[]');g.splice(i,1);localStorage.setItem(GOAL_KEY,JSON.stringify(g));renderGoals()}
+
+/* ═══════════════════════════════════════════════
+   LEADERBOARD
+═══════════════════════════════════════════════ */
+const LEADERBOARD_DATA=[
+  {rank:1, name:'Priya Sharma',   exam:'UPSC CSE',  xp:28500, streak:45, emoji:'👩‍💼', result:'IAS 2025 · AIR 47'},
+  {rank:2, name:'Arjun Nair',     exam:'JEE Adv',   xp:24200, streak:38, emoji:'👨‍🔬', result:'IIT Bombay · AIR 312'},
+  {rank:3, name:'Kavitha Reddy',  exam:'NEET UG',   xp:22100, streak:52, emoji:'🧑‍⚕️', result:'AIIMS Delhi · 720/720'},
+  {rank:4, name:'Rahul Gupta',    exam:'Banking',   xp:19800, streak:29, emoji:'👨‍💻', result:'SBI PO 2025 · Merit List'},
+  {rank:5, name:'Sunita Verma',   exam:'SSC CGL',   xp:17600, streak:21, emoji:'👩‍🏫', result:'SSC CGL · Grade-B Officer'},
+  {rank:6, name:'Deepak Tiwari',  exam:'NDA',       xp:15400, streak:17, emoji:'👨‍🎖️', result:'NDA 2025 · AIR 89'},
+  {rank:7, name:'Ananya Singh',   exam:'UPSC CSE',  xp:13200, streak:14, emoji:'👧',  result:'IPS 2025 · AIR 112'},
+  {rank:8, name:'Vikram Patel',   exam:'JEE Main',  xp:11800, streak:12, emoji:'👦',  result:'NIT Trichy · CSE Branch'},
+  {rank:9, name:'Meena Krishnan', exam:'TNPSC',     xp:10500, streak:9,  emoji:'👩',  result:'TNPCS Group I · Rank 24'},
+  {rank:10,name:'Rohit Yadav',    exam:'UPPCS',     xp:9200,  streak:7,  emoji:'🧑',  result:'UPPCS 2024 · Rank 48'},
+];
+
+const MEDALS={1:'🥇',2:'🥈',3:'🥉'};
+
+function renderLeaderboard(){
+  // Podium (2nd, 1st, 3rd)
+  const pod=document.getElementById('lb-podium');
+  if(pod&&!pod.hasChildNodes()){
+    const order=[LEADERBOARD_DATA[1],LEADERBOARD_DATA[0],LEADERBOARD_DATA[2]];
+    const heights=['80px','100px','60px'];
+    const scales=['text-3xl','text-4xl','text-2xl'];
+    pod.innerHTML=order.map((p,i)=>!p?'': `<div class="flex flex-col items-center gap-2" style="animation:fadeUp .5s ${i*.12}s ease both">
+      <div class="${scales[i]} text-center">${p.emoji}</div>
+      <div class="text-sm font-semibold text-center" style="color:var(--tx)">${p.name.split(' ')[0]}</div>
+      <div class="font-mono text-xs" style="color:var(--tx3)">${(p.xp/1000).toFixed(1)}k XP</div>
+      <div class="card flex items-end justify-center rounded-xl" style="width:72px;height:${heights[i]}">
+        <span class="text-2xl mb-2">${MEDALS[p.rank]}</span>
+      </div>
+    </div>`).join('');
+  }
+
+  // Table rows
+  const rows=document.getElementById('lb-rows');
+  if(rows&&!rows.hasChildNodes()){
+    rows.innerHTML=LEADERBOARD_DATA.map(p=>`<div class="flex items-center gap-3 px-5 py-4 hover:opacity-80 transition-all" style="border-bottom:1px solid var(--bd)" role="listitem">
+      <div class="w-8 text-center font-mono font-bold text-sm flex-shrink-0" style="color:${p.rank<=3?'#FBBF24':'var(--tx3)'}">${MEDALS[p.rank]||p.rank}</div>
+      <div class="w-9 h-9 rounded-xl flex items-center justify-center text-xl flex-shrink-0" style="background:var(--bg3);border:1px solid var(--bd)">${p.emoji}</div>
+      <div class="flex-1 min-w-0">
+        <div class="font-semibold text-sm" style="color:var(--tx)">${p.name}</div>
+        <div class="text-xs font-mono" style="color:var(--tx3)">${p.result}</div>
+      </div>
+      <div class="flex items-center gap-3 flex-shrink-0">
+        <div class="text-center hsm"><div class="font-mono text-sm font-bold" style="color:#818CF8">${(p.xp/1000).toFixed(1)}k</div><div class="text-xs" style="color:var(--tx3)">XP</div></div>
+        <div class="text-center hsm"><div class="font-mono text-sm font-bold" style="color:#FB7185">${p.streak}🔥</div><div class="text-xs" style="color:var(--tx3)">Streak</div></div>
+        <span class="bdg bi">${p.exam}</span>
+      </div>
+    </div>`).join('');
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   SUCCESS STORIES
+═══════════════════════════════════════════════ */
+const STORIES_DATA=[
+  {name:'Priya Sharma',  rank:'IAS 2025 · AIR 47',          exam:'UPSC CSE', emoji:'👩‍💼', quote:"BYK's daily current affairs and adaptive mock tests were the game-changer. I completed 150 full tests before Prelims. The accuracy tracker spotted my Economy weakness in just week 3 of preparation."},
+  {name:'Arjun Nair',    rank:'IIT Bombay · JEE Adv AIR 312',exam:'JEE Adv',  emoji:'👨‍🔬', quote:"No coaching, no paid apps — just BYK All Exam and consistent effort. The AI kept targeting Organic Chemistry at me until my accuracy hit 85%. It genuinely adapts to where you're weak."},
+  {name:'Kavitha Reddy', rank:'AIIMS Delhi · NEET 720/720',  exam:'NEET UG',  emoji:'🧑‍⚕️', quote:"Perfect 720 using only BYK. The AI Mentor helped me clarify doubts at 2 AM the night before the exam. The notes library had everything — no coaching needed at all."},
+  {name:'Rahul Gupta',   rank:'SBI PO 2025 · Merit List',    exam:'Banking',  emoji:'👨‍💻', quote:"Full-time job and IBPS prep simultaneously. BYK's mobile interface made lunch breaks productive. Cleared IBPS PO and SBI PO in the same cycle. Best free platform I've used."},
+  {name:'Sunita Verma',  rank:'SSC CGL 2025 · Grade-B',      exam:'SSC CGL',  emoji:'👩‍🏫', quote:"The progress heatmap showed I was only studying 3 days per week. After seeing that data, I pushed to 6 days consistently and my all-India rank jumped from 18,000 to 4,000 in two months."},
+  {name:'Deepak Tiwari', rank:'NDA 2025 · AIR 89',           exam:'NDA',      emoji:'👨‍🎖️', quote:"Started at 15 years old with zero strategy. BYK's daily plan told me what to study, when, and for how long. Cleared NDA at 17 with AIR 89. Zero rupees spent. Dream come true."},
+];
+
+function renderStories(){
+  // Marquee
+  const track=document.getElementById('stories-track');
+  if(track&&!track.hasChildNodes()){
+    const all=[...STORIES_DATA,...STORIES_DATA];
+    track.innerHTML=all.map(s=>`<article class="card flex-shrink-0 p-6 hover:scale-[1.02] transition-all" style="width:290px">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0" style="background:var(--bg3);border:1px solid var(--bd)">${s.emoji}</div>
+        <div><div class="font-bold text-sm" style="color:var(--tx)">${s.name}</div><div class="font-mono text-[11px]" style="color:#FBBF24">${s.rank}</div></div>
+      </div>
+      <div class="text-yellow-400 text-sm mb-3">★★★★★</div>
+      <p class="text-sm leading-relaxed italic mb-4" style="color:var(--tx2)">"${s.quote.slice(0,130)}…"</p>
+      <span class="bdg bi">${s.exam}</span>
+    </article>`).join('');
+  }
+  // Grid
+  const grid=document.getElementById('stories-grid');
+  if(grid&&!grid.hasChildNodes()){
+    grid.innerHTML=STORIES_DATA.map(s=>`<article class="card p-6 rv hover:scale-[1.02] transition-all">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0" style="background:var(--bg3);border:1px solid var(--bd)">${s.emoji}</div>
+        <div><div class="font-bold" style="color:var(--tx)">${s.name}</div><div class="font-mono text-xs" style="color:#FBBF24">${s.rank}</div></div>
+      </div>
+      <div class="text-yellow-400 text-sm mb-3">★★★★★</div>
+      <p class="text-sm leading-relaxed italic mb-4" style="color:var(--tx2)">"${s.quote}"</p>
+      <span class="bdg bi">${s.exam}</span>
+    </article>`).join('');
+  }
+  initIO();
+}
+
+/* ═══════════════════════════════════════════════
+   ENHANCED QUIZ FINISH (update progress)
+═══════════════════════════════════════════════ */
+// Override finishQuiz to also persist progress
+const _origFinishQuiz=finishQuiz;
+finishQuiz=function(){
+  _origFinishQuiz();
+  // Persist results
+  const xpEarned=persistQuizResult(QZ.correct,QZ.wrong,QZ.score,QZ.pool,QZ.history);
+  if(xpEarned>0)toast(`+${xpEarned} XP earned! Check Progress Tracker 📊`,'success');
+};
+
+/* ═══════════════════════════════════════════════
+   NAV UPDATE — add new pages to sidebar & initPg
+═══════════════════════════════════════════════ */
+// Extend D.nav with new pages
+D.nav.push(
+  {id:'progress',    lbl:'Progress Tracker', ico:'📊', cat:'tools'},
+  {id:'leaderboard', lbl:'Leaderboard',       ico:'🏆', cat:'tools'},
+  {id:'stories',     lbl:'Success Stories',   ico:'⭐', cat:'tools'}
+);
+
+// Extend initPg
+const _origInitPg=initPg;
+initPg=function(pg){
+  _origInitPg(pg);
+  switch(pg){
+    case'progress':    renderProgressPage(); break;
+    case'leaderboard': renderLeaderboard();  break;
+    case'stories':     renderStories();      break;
+  }
+};
+
+/* ═══════════════════════════════════════════════
+   HOME — inject Stories section after plan
+═══════════════════════════════════════════════ */
+function injectHomeStories(){
+  // Add "Stories" quick button to home CTA if not already there
+  const cg=document.getElementById('hctag');
+  if(!cg)return;
+  // Check if stories button exists
+  if(document.getElementById('home-stories-btn'))return;
+  const btn=document.createElement('button');
+  btn.id='home-stories-btn';
+  btn.onclick=()=>navigate('stories');
+  btn.className='card p-4 text-center hover:scale-[1.04] transition-all cursor-pointer rv';
+  btn.style.cssText='background:rgba(251,191,36,.1);border-color:rgba(251,191,36,.35)';
+  btn.innerHTML='<div class="text-3xl mb-1.5">⭐</div><div class="font-bold text-sm" style="color:var(--tx)">Stories</div>';
+  cg.appendChild(btn);
+}
+
+/* ═══════════════════════════════════════════════
+   REBUILD SIDEBAR (with new pages)
+═══════════════════════════════════════════════ */
+function rebuildSidebar(){
+  const sbnav=document.getElementById('sbnav');
+  const mlinks=document.getElementById('mnavlinks');
+  if(!sbnav||!mlinks)return;
+  sbnav.innerHTML='';mlinks.innerHTML='';
+  const cats={main:'Main',exams:'Exams',tools:'Tools'};
+  let lc='',h='',mh='';
+  D.nav.forEach(item=>{
+    if(item.cat!==lc){h+=`<div class="scat${lc?' mt-3':''}">${cats[item.cat]}</div>`;lc=item.cat}
+    h+=`<button class="sl${item.id==='home'?' active':''}" data-pg="${item.id}" onclick="navigate('${item.id}')"><span class="sl-ico">${item.ico}</span><span class="sb-txt">${item.lbl}</span></button>`;
+    mh+=`<button class="sl" data-pg="${item.id}" onclick="navigate('${item.id}')"><span class="sl-ico">${item.ico}</span>${item.lbl}</button>`;
+  });
+  sbnav.innerHTML=h;mlinks.innerHTML=mh;
+}
+
+/* ═══════════════════════════════════════════════
+   FINAL INIT EXTENSION
+═══════════════════════════════════════════════ */
+// Run after original DOMContentLoaded
+window.addEventListener('load',()=>{
+  updateProgressUI();   // Restore progress from localStorage
+  rebuildSidebar();     // Re-build sidebar with new nav items
+  injectHomeStories();  // Add stories button to home CTA
 });
 </script>
 </body>
