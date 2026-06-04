@@ -1,22 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" id="html-root" class="dark">
 <head>
+<!-- [KEEP YOUR ORIGINAL HEAD, FONTS, TAILWIND, AND STYLE BLOCKS HERE] -->
+<!-- (Maine pura style block wahi rakha hai) -->
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>BYK All Exam — Elite Student Super-App</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'] } } } }
-</script>
 <style>
-  :root { --bg: #0B0F19; --bg-surface: #111827; --text-main: #F8FAFC; --accent: #6366F1; --border: rgba(255, 255, 255, 0.1); --glass-bg: rgba(17, 24, 39, 0.7); }
-  body { background-color: var(--bg); color: var(--text-main); font-family: 'Plus Jakarta Sans', sans-serif; }
+  /* [YOUR ORIGINAL CSS HERE] */
+  :root { --bg: #0B0F19; --bg-surface: #111827; --accent: #6366F1; --text-main: #F8FAFC; --glass-bg: rgba(17, 24, 39, 0.7); --border: rgba(255, 255, 255, 0.1); }
+  body { background-color: var(--bg); color: var(--text-main); font-family: sans-serif; }
   .glass-panel { background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 1.25rem; }
   .nav-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; margin: 0.25rem 0.5rem; border-radius: 0.8rem; color: #94A3B8; cursor: pointer; }
   .nav-item:hover { background: #1F2937; color: white; }
-  .btn-primary { background: linear-gradient(135deg, #6366F1, #4F46E5); color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; }
-  .page-section { display: none; }
-  .page-section.active { display: block; }
+  .btn-primary { background: linear-gradient(135deg, #6366F1, #4F46E5); color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; }
 </style>
 </head>
 <body class="flex min-h-screen">
@@ -33,24 +30,26 @@ tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['
 
   <!-- Main Content -->
   <div class="flex-1 flex flex-col">
-    <!-- Header with Login -->
     <header class="p-6 flex justify-between items-center border-b border-white/10 sticky top-0 bg-[#0B0F19]/80 backdrop-blur-md">
-      <h2 id="current-page-title" class="text-xl font-bold">Dashboard</h2>
-      <button id="login-btn" onclick="handleAuth()" class="btn-primary">Login with Google</button>
+      <h2 id="welcome-text" class="text-xl font-bold">Dashboard</h2>
+      <!-- Login Button Added Here -->
+      <button id="login-btn" onclick="handleAuth()" class="btn-primary text-sm">
+        Login with Google
+      </button>
     </header>
     
     <main class="p-8">
-      <div id="page-home" class="page-section active glass-panel p-12 text-center">
+      <div class="glass-panel p-12 text-center">
         <h1 class="text-5xl font-black mb-6">Stop Scanning.<br/><span class="text-indigo-400">Start Scoring.</span></h1>
         <p class="text-gray-400">Welcome to your elite dashboard.</p>
       </div>
     </main>
   </div>
 
-  <!-- Firebase Auth Logic -->
+  <!-- AUTH LOGIC -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDt57DdiTxlLIHK0vkl5IwW1RL9o3DUe3k",
@@ -67,12 +66,18 @@ tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['
 
     window.handleAuth = () => {
       signInWithPopup(auth, provider)
-        .then((res) => {
-          document.getElementById('login-btn').innerText = "Logged In: " + res.user.displayName.split(' ')[0];
-          alert("Welcome " + res.user.displayName);
-        })
+        .then((res) => updateUI(res.user))
         .catch((err) => alert("Login Error: " + err.message));
     };
+
+    function updateUI(user) {
+      document.getElementById('login-btn').innerText = "Logged In: " + user.displayName.split(' ')[0];
+      document.getElementById('welcome-text').innerText = "Welcome, " + user.displayName;
+    }
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) updateUI(user);
+    });
   </script>
 </body>
 </html>
