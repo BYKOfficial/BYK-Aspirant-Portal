@@ -1,42 +1,84 @@
-<!-- Is code ko copy karke index.html mein paste karein -->
-<!-- Header mein login button aur script mein logic add kiya gaya hai -->
-<header class="h-14 px-4 sm:px-6 flex items-center justify-between">
-    <div class="flex items-center gap-3">
-        <!-- ... (Aapka existing header code) ... -->
-    </div>
-    <div class="flex items-center gap-3">
-        <!-- Yahan naya Login Button add kiya hai -->
-        <button id="login-btn" onclick="handleAuth()" class="btn-primary px-4 py-1.5 text-sm">
-            Login
-        </button>
-        <!-- ... (Aapka existing theme toggle) ... -->
-    </div>
-</header>
+<!DOCTYPE html>
+<html lang="en" id="html-root" class="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BYK All Exam — Elite Portal</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { --bg: #0B0F19; --bg-surface: #111827; --text-main: #F8FAFC; --accent: #6366F1; --border: rgba(255, 255, 255, 0.1); }
+  body { background-color: var(--bg); color: var(--text-main); font-family: sans-serif; }
+  .glass-panel { background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 1.25rem; }
+  .nav-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; margin: 0.25rem 0.5rem; border-radius: 0.5rem; cursor: pointer; color: #94A3B8; }
+  .nav-item:hover { background: #1F2937; color: white; }
+</style>
+</head>
+<body class="flex min-h-screen">
 
-<!-- Firebase Script (Ise file ke ant mein add karein) -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  <!-- Sidebar -->
+  <aside class="w-64 border-r border-white/10 p-6 flex flex-col bg-[#111827]">
+    <div class="font-bold text-xl mb-10 text-indigo-400">BYK Exam</div>
+    <nav class="space-y-2">
+      <div class="nav-item">🏠 Dashboard</div>
+      <div class="nav-item">📋 UPSC CSE</div>
+      <div class="nav-item">🏛️ State PCS</div>
+      <div class="nav-item">🛡️ SSC & Railway</div>
+      <div class="nav-item">🎓 IGNOU Hub</div>
+      <div class="nav-item">⚡ Mock Engine</div>
+      <div class="nav-item">🤖 AI Evaluator</div>
+    </nav>
+  </aside>
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyDt57DdiTxlLIHK0vkl5IwW1RL9o3DUe3k",
-    authDomain: "byk-all-exam.firebaseapp.com",
-    projectId: "byk-all-exam",
-    storageBucket: "byk-all-exam.firebasestorage.app",
-    messagingSenderId: "413565314858",
-    appId: "1:413565314858:web:c614e57ed60c47a5b32053"
-  };
+  <!-- Main Content -->
+  <div class="flex-1 flex flex-col">
+    <header class="p-6 flex justify-between items-center border-b border-white/10">
+      <h2 id="welcome-text" class="text-xl font-bold">Dashboard</h2>
+      <!-- Login Button -->
+      <button id="login-btn" onclick="handleAuth()" class="bg-indigo-600 px-4 py-2 rounded-lg font-bold hover:bg-indigo-700 transition">
+        Login with Google
+      </button>
+    </header>
+    
+    <main class="p-8">
+      <div class="glass-panel p-12 text-center">
+        <h1 class="text-5xl font-black mb-6">Stop Scanning.<br/><span class="text-indigo-400">Start Scoring.</span></h1>
+        <p class="text-gray-400 max-w-lg mx-auto">AI-powered evaluation and mock tests for UPSC, SSC, and more.</p>
+      </div>
+    </main>
+  </div>
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
+  <!-- Firebase Logic -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-  window.handleAuth = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        document.getElementById('login-btn').innerText = "Logged In";
-        alert("Welcome " + result.user.displayName + "!");
-      })
-      .catch((error) => alert("Login Error: " + error.message));
-  };
-</script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDt57DdiTxlLIHK0vkl5IwW1RL9o3DUe3k",
+      authDomain: "byk-all-exam.firebaseapp.com",
+      projectId: "byk-all-exam",
+      storageBucket: "byk-all-exam.firebasestorage.app",
+      messagingSenderId: "413565314858",
+      appId: "1:413565314858:web:c614e57ed60c47a5b32053"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    window.handleAuth = () => {
+      signInWithPopup(auth, provider)
+        .then((res) => updateUI(res.user))
+        .catch((err) => alert("Error: " + err.message));
+    };
+
+    function updateUI(user) {
+      document.getElementById('login-btn').innerText = "Logged In: " + user.displayName.split(' ')[0];
+      document.getElementById('welcome-text').innerText = "Welcome, " + user.displayName;
+    }
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) updateUI(user);
+    });
+  </script>
+</body>
+</html>
