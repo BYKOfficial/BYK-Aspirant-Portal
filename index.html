@@ -9,10 +9,12 @@
 <meta name="author" content="Amin Salim | Build Your Knowledge" />
 <title>BYK All Exam — Elite Student Super-App</title>
 
+<!-- Fonts: Plus Jakarta Sans for UI, JetBrains Mono for Code/Data -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
+<!-- Tailwind CSS (CDN for Rapid Prototyping) -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
@@ -42,6 +44,7 @@ tailwind.config = {
 }
 </script>
 
+<!-- Elite CSS Architecture -->
 <style>
   /* Base Variables */
   :root {
@@ -260,8 +263,10 @@ tailwind.config = {
 </head>
 <body class="flex min-h-screen">
 
+  <!-- TOAST NOTIFICATION AREA -->
   <div id="toast-container" class="fixed top-20 right-4 z-[9999] flex flex-col gap-2 pointer-events-none w-72"></div>
 
+  <!-- SIDEBAR NAVIGATION -->
   <aside id="sidebar" class="flex flex-col">
     <div class="h-16 flex items-center justify-between px-4 border-b" style="border-color: var(--border);">
       <div class="flex items-center gap-3 overflow-hidden whitespace-nowrap">
@@ -274,17 +279,23 @@ tailwind.config = {
     </div>
     
     <div class="flex-1 overflow-y-auto py-4" id="nav-container">
-      </div>
+      <!-- Nav items injected via JS -->
+    </div>
   </aside>
 
+  <!-- MAIN CONTENT AREA -->
   <div class="flex-1 flex flex-col min-w-0">
     
+    <!-- TOP HEADER -->
     <header class="sticky top-0 z-40 backdrop-blur-xl" style="background: var(--glass-bg); border-bottom: 1px solid var(--border);">
+      <!-- Ticker -->
       <div class="h-6 overflow-hidden bg-indigo-600 text-white text-[11px] font-bold uppercase tracking-wider flex items-center">
         <div class="animate-ticker flex whitespace-nowrap" id="news-ticker">
-          </div>
+          <!-- Ticker items injected via JS -->
+        </div>
       </div>
       
+      <!-- Topbar -->
       <div class="h-14 px-4 sm:px-6 flex items-center justify-between">
         <div class="flex items-center gap-3">
           <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-gray-400 hover:text-white">
@@ -311,12 +322,18 @@ tailwind.config = {
       </div>
     </header>
 
+    <!-- PAGE CONTAINER -->
     <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 relative">
       
+      <!-- BACKGROUND GLOWS (Cosmetic) -->
       <div class="absolute top-0 right-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-[100px] pointer-events-none -z-10"></div>
       <div class="absolute bottom-0 left-0 w-96 h-96 bg-teal-500/10 rounded-full blur-[100px] pointer-events-none -z-10"></div>
 
+      <!-- ==========================================
+           PAGE: HOME / DASHBOARD
+           ========================================== -->
       <div id="page-home" class="page-section active">
+        <!-- Hero Section -->
         <div class="text-center py-12 lg:py-20 animate-fade-up">
           <span class="badge badge-brand mb-4">India's Elite Learning Ecosystem</span>
           <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight mb-6 leading-tight">
@@ -332,6 +349,7 @@ tailwind.config = {
           </div>
         </div>
 
+        <!-- Quick Stats -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
           <div class="glass-panel p-6 text-center">
             <div class="text-3xl font-black text-indigo-400 mb-1">500+</div>
@@ -351,14 +369,18 @@ tailwind.config = {
           </div>
         </div>
 
+        <!-- Main Categories Grid -->
         <div class="flex items-center justify-between mb-6">
           <h2 class="text-2xl font-bold">Exam Categories</h2>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-12" id="home-categories">
-          </div>
+          <!-- Injected via JS -->
+        </div>
 
+        <!-- Two Column Layout: Features & Study Plan -->
         <div class="grid lg:grid-cols-3 gap-6">
           
+          <!-- Features -->
           <div class="lg:col-span-2 space-y-6">
             <h2 class="text-2xl font-bold">Elite Features</h2>
             <div class="grid sm:grid-cols-2 gap-4">
@@ -385,6 +407,7 @@ tailwind.config = {
             </div>
           </div>
 
+          <!-- Study Plan & Activity -->
           <div class="space-y-6">
             <h2 class="text-2xl font-bold">Today's Focus</h2>
             <div class="glass-panel p-6">
@@ -412,7 +435,8 @@ tailwind.config = {
             <div class="glass-panel p-6">
               <h3 class="font-bold text-sm mb-4">ACTIVITY HEATMAP</h3>
               <div class="grid grid-cols-7 gap-1" id="heatmap-mini">
-                </div>
+                <!-- JS injected boxes -->
+              </div>
               <p class="text-center text-xs mt-3" style="color: var(--text-muted);">Consistency is key. 14 day streak 🔥</p>
             </div>
           </div>
@@ -420,6 +444,9 @@ tailwind.config = {
         </div>
       </div>
 
+      <!-- ==========================================
+           PAGE: AI EVALUATOR (Mockup)
+           ========================================== -->
       <div id="page-ai-eval" class="page-section">
         <div class="max-w-4xl mx-auto">
           <div class="flex items-center gap-4 mb-8">
@@ -431,6 +458,7 @@ tailwind.config = {
           </div>
 
           <div class="grid md:grid-cols-2 gap-6">
+            <!-- Input Area -->
             <div class="glass-panel p-6">
               <div class="mb-4">
                 <label class="block text-xs font-bold mb-2 uppercase tracking-wide" style="color: var(--text-muted);">The Question</label>
@@ -453,6 +481,7 @@ tailwind.config = {
               <button onclick="simulateAIEval()" class="btn-primary w-full py-3 text-lg" id="eval-btn">Evaluate Answer</button>
             </div>
 
+            <!-- Result Area -->
             <div class="glass-panel p-6 flex flex-col justify-center items-center text-center relative overflow-hidden" id="ai-result-area">
               <div class="text-6xl mb-4 opacity-50">📑</div>
               <h3 class="text-xl font-bold mb-2">Waiting for input...</h3>
@@ -462,6 +491,9 @@ tailwind.config = {
         </div>
       </div>
 
+      <!-- ==========================================
+           PAGE: PLACEHOLDER FOR OTHERS
+           ========================================== -->
       <div id="page-coming-soon" class="page-section">
         <div class="flex flex-col items-center justify-center min-h-[60vh] text-center">
           <div class="text-6xl mb-6 animate-pulse-slow">🚧</div>
@@ -473,6 +505,29 @@ tailwind.config = {
 
     </main>
   </div>
+
+<!-- ==========================================
+     FIREBASE SDK INITIALIZATION
+     ========================================== -->
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDt57DdiTxlLIHK0vkl5IwW1RL9o3DUe3k",
+    authDomain: "byk-all-exam.firebaseapp.com",
+    projectId: "byk-all-exam",
+    storageBucket: "byk-all-exam.firebasestorage.app",
+    messagingSenderId: "413565314858",
+    appId: "1:413565314858:web:c614e57ed60c47a5b32053"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  window.firebaseApp = app; 
+  console.log("Firebase Database Connected Successfully! 🚀");
+</script>
 
 <script>
 /* =========================================================================
