@@ -2,34 +2,43 @@
 <html lang="en" id="html-root" class="dark">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>BYK All Exam — Elite Student Super-App</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BYK All Exam — Elite Portal</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-  :root { --bg: #0B0F19; --bg-surface: #111827; --text-main: #F8FAFC; --accent: #6366F1; --border: rgba(255, 255, 255, 0.1); }
-  body { background-color: var(--bg); color: var(--text-main); font-family: sans-serif; }
-  .glass-panel { background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 1.25rem; }
-  .btn-primary { background: linear-gradient(135deg, #6366F1, #4F46E5); color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; }
+  :root { --bg: #0B0F19; --glass-bg: rgba(17, 24, 39, 0.7); --border: rgba(255, 255, 255, 0.1); --accent: #6366F1; }
+  body { background-color: var(--bg); color: #F8FAFC; font-family: sans-serif; }
+  .glass-panel { background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 1.25rem; }
 </style>
 </head>
 <body class="flex min-h-screen">
 
-  <!-- TOP HEADER -->
-  <header class="fixed w-full z-50 backdrop-blur-md border-b border-white/10 p-4 flex justify-between items-center">
-    <div class="font-bold text-lg">BYK<span class="text-indigo-400">Exam</span></div>
-    <div class="flex gap-3">
-      <!-- LOGIN BUTTON -->
-      <button id="login-btn" onclick="handleAuth()" class="btn-primary">Login with Google</button>
-      <button onclick="toggleTheme()" class="p-2 border border-white/10 rounded-lg">🌙</button>
-    </div>
-  </header>
+  <!-- Sidebar -->
+  <aside id="sidebar" class="w-64 border-r border-white/10 p-6 flex flex-col">
+    <div class="font-bold text-xl mb-10">BYK<span class="text-indigo-400">Exam</span></div>
+    <nav class="space-y-4 text-gray-400">
+      <div class="cursor-pointer hover:text-white">🏠 Dashboard</div>
+      <div class="cursor-pointer hover:text-white">⚡ Mock Tests</div>
+      <div class="cursor-pointer hover:text-white">🤖 AI Evaluator</div>
+    </nav>
+  </aside>
 
-  <main class="pt-24 p-8 text-center">
-    <h1 class="text-5xl font-black mb-6">Stop Scanning.<br/><span class="text-indigo-400">Start Scoring.</span></h1>
-    <p class="text-gray-400 max-w-xl mx-auto mb-10">AI-powered evaluation and mock tests for UPSC, SSC, and more.</p>
-  </main>
+  <!-- Content -->
+  <div class="flex-1">
+    <header class="p-6 flex justify-between items-center border-b border-white/10">
+      <h2 class="text-xl font-bold">Dashboard</h2>
+      <button id="login-btn" onclick="handleAuth()" class="bg-indigo-600 px-4 py-2 rounded-lg font-bold">Login with Google</button>
+    </header>
+    
+    <main class="p-8">
+      <div class="glass-panel p-12 text-center">
+        <h1 class="text-5xl font-black mb-6">Stop Scanning.<br/><span class="text-indigo-400">Start Scoring.</span></h1>
+        <p class="text-gray-400">Welcome to your elite dashboard. Login to access tests.</p>
+      </div>
+    </main>
+  </div>
 
-  <!-- FIREBASE & AUTH LOGIC -->
+  <!-- Firebase Auth -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -50,19 +59,11 @@
     window.handleAuth = () => {
       signInWithPopup(auth, provider)
         .then((result) => {
-          const user = result.user;
           document.getElementById('login-btn').innerText = "Logged In";
-          alert("Welcome " + user.displayName + "! Login Successful.");
+          alert("Welcome " + result.user.displayName + "!");
         })
-        .catch((error) => {
-          alert("Login error: " + error.message);
-        });
+        .catch((e) => alert("Error: " + e.message));
     };
-
-    function toggleTheme() {
-        document.getElementById('html-root').classList.toggle('dark');
-    }
-    window.toggleTheme = toggleTheme;
   </script>
 </body>
 </html>
