@@ -1,72 +1,42 @@
-<!DOCTYPE html>
-<html lang="en" id="html-root" class="dark">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BYK All Exam — Elite Student Super-App</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        :root { --bg: #0B0F19; --bg-surface: #111827; --accent: #6366F1; }
-        body { background-color: var(--bg); color: #F8FAFC; }
-    </style>
-</head>
-<body class="flex min-h-screen">
+<!-- Is code ko copy karke index.html mein paste karein -->
+<!-- Header mein login button aur script mein logic add kiya gaya hai -->
+<header class="h-14 px-4 sm:px-6 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+        <!-- ... (Aapka existing header code) ... -->
+    </div>
+    <div class="flex items-center gap-3">
+        <!-- Yahan naya Login Button add kiya hai -->
+        <button id="login-btn" onclick="handleAuth()" class="btn-primary px-4 py-1.5 text-sm">
+            Login
+        </button>
+        <!-- ... (Aapka existing theme toggle) ... -->
+    </div>
+</header>
 
-    <!-- Sidebar -->
-    <aside class="w-64 bg-[#111827] p-6 border-r border-white/10">
-        <h1 class="text-xl font-bold text-indigo-400 mb-10">BYK Exam</h1>
-        <nav class="space-y-4">
-            <div class="cursor-pointer">🏠 Dashboard</div>
-            <div class="cursor-pointer">📋 UPSC CSE</div>
-        </nav>
-    </aside>
+<!-- Firebase Script (Ise file ke ant mein add karein) -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-    <!-- Main Content -->
-    <main class="flex-1 p-8">
-        <header class="flex justify-between items-center mb-10">
-            <h2 id="welcome-text" class="text-2xl font-bold">Dashboard</h2>
-            <button id="login-btn" onclick="handleAuth()" class="bg-indigo-600 px-6 py-2 rounded-lg font-bold hover:bg-indigo-700">
-                Login with Google
-            </button>
-        </header>
+  const firebaseConfig = {
+    apiKey: "AIzaSyDt57DdiTxlLIHK0vkl5IwW1RL9o3DUe3k",
+    authDomain: "byk-all-exam.firebaseapp.com",
+    projectId: "byk-all-exam",
+    storageBucket: "byk-all-exam.firebasestorage.app",
+    messagingSenderId: "413565314858",
+    appId: "1:413565314858:web:c614e57ed60c47a5b32053"
+  };
 
-        <div class="bg-[#111827] p-12 rounded-2xl border border-white/10 text-center">
-            <h1 class="text-5xl font-black mb-6">Stop Scanning.<br/><span class="text-indigo-400">Start Scoring.</span></h1>
-        </div>
-    </main>
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
 
-    <!-- Firebase Auth Logic -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyDt57DdiTxlLIHK0vkl5IwW1RL9o3DUe3k",
-            authDomain: "byk-all-exam.firebaseapp.com",
-            projectId: "byk-all-exam",
-            storageBucket: "byk-all-exam.firebasestorage.app",
-            messagingSenderId: "413565314858",
-            appId: "1:413565314858:web:c614e57ed60c47a5b32053"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
-
-        window.handleAuth = () => {
-            signInWithPopup(auth, provider)
-                .then((res) => updateUI(res.user))
-                .catch((err) => alert("Error: " + err.message));
-        };
-
-        function updateUI(user) {
-            document.getElementById('login-btn').innerText = "Logged In: " + user.displayName.split(' ')[0];
-            document.getElementById('welcome-text').innerText = "Welcome, " + user.displayName;
-        }
-
-        onAuthStateChanged(auth, (user) => {
-            if (user) updateUI(user);
-        });
-    </script>
-</body>
-</html>
+  window.handleAuth = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        document.getElementById('login-btn').innerText = "Logged In";
+        alert("Welcome " + result.user.displayName + "!");
+      })
+      .catch((error) => alert("Login Error: " + error.message));
+  };
+</script>
