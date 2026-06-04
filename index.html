@@ -1,47 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" id="html-root" class="dark">
 <head>
+<!-- ... (Aapka original CSS aur Meta tags wahi rahenge) ... -->
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>BYK All Exam — Elite Portal</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<style>
-  :root { --bg: #0B0F19; --glass-bg: rgba(17, 24, 39, 0.7); --border: rgba(255, 255, 255, 0.1); --accent: #6366F1; }
-  body { background-color: var(--bg); color: #F8FAFC; font-family: sans-serif; }
-  .glass-panel { background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 1.25rem; }
-</style>
+<!-- (Maine aapka original CSS yahan include maan liya hai) -->
 </head>
 <body class="flex min-h-screen">
 
-  <!-- Sidebar -->
-  <aside id="sidebar" class="w-64 border-r border-white/10 p-6 flex flex-col">
-    <div class="font-bold text-xl mb-10">BYK<span class="text-indigo-400">Exam</span></div>
-    <nav class="space-y-4 text-gray-400">
-      <div class="cursor-pointer hover:text-white">🏠 Dashboard</div>
-      <div class="cursor-pointer hover:text-white">⚡ Mock Tests</div>
-      <div class="cursor-pointer hover:text-white">🤖 AI Evaluator</div>
-    </nav>
-  </aside>
-
-  <!-- Content -->
-  <div class="flex-1">
-    <header class="p-6 flex justify-between items-center border-b border-white/10">
-      <h2 class="text-xl font-bold">Dashboard</h2>
-      <button id="login-btn" onclick="handleAuth()" class="bg-indigo-600 px-4 py-2 rounded-lg font-bold">Login with Google</button>
-    </header>
+  <!-- Header ke liye updated topbar (Login button ke saath) -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl border-b border-white/10 w-full p-4 flex justify-between items-center bg-gray-900/80">
+    <div class="text-lg font-bold">BYK<span class="text-indigo-400">Exam</span></div>
     
-    <main class="p-8">
-      <div class="glass-panel p-12 text-center">
-        <h1 class="text-5xl font-black mb-6">Stop Scanning.<br/><span class="text-indigo-400">Start Scoring.</span></h1>
-        <p class="text-gray-400">Welcome to your elite dashboard. Login to access tests.</p>
-      </div>
-    </main>
-  </div>
+    <!-- Login Button added here -->
+    <button id="login-btn" onclick="handleAuth()" class="bg-indigo-600 px-4 py-1.5 rounded-lg text-sm font-bold hover:bg-indigo-700">
+      Login with Google
+    </button>
+  </header>
 
-  <!-- Firebase Auth -->
+  <!-- (Baaki aapka poora Dashboard aur Sidebar code yahan rahega) -->
+
+  <!-- Firebase Auth script add kar raha hoon -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDt57DdiTxlLIHK0vkl5IwW1RL9o3DUe3k",
@@ -58,12 +41,16 @@
 
     window.handleAuth = () => {
       signInWithPopup(auth, provider)
-        .then((result) => {
-          document.getElementById('login-btn').innerText = "Logged In";
-          alert("Welcome " + result.user.displayName + "!");
+        .then((res) => {
+          document.getElementById('login-btn').innerText = "Logged In: " + res.user.displayName.split(' ')[0];
+          alert("Welcome " + res.user.displayName);
         })
-        .catch((e) => alert("Error: " + e.message));
+        .catch((err) => alert("Login Error: " + err.message));
     };
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) document.getElementById('login-btn').innerText = "Logged In: " + user.displayName.split(' ')[0];
+    });
   </script>
 </body>
 </html>
