@@ -3,94 +3,584 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="description" content="BYK All Exam — India's Elite Educational Super-App. UPSC, State PCS, SSC, Railway, Banking, IGNOU. AI Answer Evaluation, Adaptive MCQs, Live Mock Tests." />
+<meta name="keywords" content="UPSC 2026, UPPCS, BPSC, SSC CGL, RRB NTPC, IBPS PO, IGNOU assignment, AI evaluation, free mock test India, educational app" />
+<meta name="theme-color" content="#0B0F19" />
+<meta name="author" content="Amin Salim | Build Your Knowledge" />
 <title>BYK All Exam — Elite Student Super-App</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
 <script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace']
+      },
+      colors: {
+        brand: { 400: '#818CF8', 500: '#6366F1', 600: '#4F46E5' },
+        surface: { dark: '#111827', light: '#ffffff' },
+        border: { dark: '#374151', light: '#E2E8F0' }
+      },
+      animation: {
+        'ticker': 'ticker 40s linear infinite',
+        'fade-up': 'fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      },
+      keyframes: {
+        ticker: { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
+        fadeUp: { 'from': { opacity: '0', transform: 'translateY(20px)' }, 'to': { opacity: '1', transform: 'none' } }
+      }
+    }
+  }
+}
+</script>
+
 <style>
-  :root { --bg: #0B0F19; --bg-surface: #111827; --bg-elevated: #1F2937; --text-main: #F8FAFC; --text-muted: #94A3B8; --border: rgba(255, 255, 255, 0.1); --accent: #6366F1; --glass-bg: rgba(17, 24, 39, 0.7); }
-  body { background-color: var(--bg); color: var(--text-main); font-family: sans-serif; }
-  .glass-panel { background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 1.25rem; }
-  .nav-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; margin: 0.25rem 0.5rem; border-radius: 0.8rem; color: var(--text-muted); cursor: pointer; }
-  .nav-item:hover { background: var(--bg-elevated); color: white; }
-  .nav-item.active { background: rgba(99, 102, 241, 0.2); color: var(--accent); }
-  .page-section { display: none; }
-  .page-section.active { display: block; }
+  /* Base Variables */
+  :root {
+    --bg: #0B0F19; /* Deep space dark */
+    --bg-surface: #111827;
+    --bg-elevated: #1F2937;
+    --text-main: #F8FAFC;
+    --text-muted: #94A3B8;
+    --border: rgba(255, 255, 255, 0.1);
+    --border-hover: rgba(99, 102, 241, 0.4);
+    --glass-bg: rgba(17, 24, 39, 0.7);
+    --accent: #6366F1;
+    --accent-glow: rgba(99, 102, 241, 0.2);
+    --radius-lg: 1.25rem;
+    --radius-md: 0.875rem;
+    --shadow-elite: 0 10px 30px -10px rgba(0,0,0,0.5);
+  }
+
+  html.light {
+    --bg: #F8FAFC;
+    --bg-surface: #FFFFFF;
+    --bg-elevated: #F1F5F9;
+    --text-main: #0F172A;
+    --text-muted: #475569;
+    --border: rgba(0, 0, 0, 0.08);
+    --border-hover: rgba(99, 102, 241, 0.5);
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --shadow-elite: 0 10px 30px -10px rgba(0,0,0,0.05);
+  }
+
+  /* Reset & Global */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Subtle Noise Texture for Premium Feel */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
+  /* Scrollbar Customization */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg-surface); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+  ::selection { background: var(--accent-glow); color: var(--accent); }
+
+  /* Glassmorphism Classes */
+  .glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-elite);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .glass-panel:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px -10px rgba(99, 102, 241, 0.15);
+  }
+
+  /* Buttons */
+  .btn-elite {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #6366F1, #4F46E5);
+    color: white;
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+    border: none;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+  }
+  .btn-primary:active { transform: scale(0.98); }
+  
+  .btn-outline {
+    background: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover {
+    border-color: var(--accent);
+    background: var(--accent-glow);
+    color: var(--accent);
+  }
+
+  /* Typography & Badges */
+  .text-gradient {
+    background: linear-gradient(135deg, #818CF8, #34D399);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.6rem;
+    border-radius: 9999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 1px solid;
+  }
+  .badge-brand { background: rgba(99,102,241,0.1); color: #818CF8; border-color: rgba(99,102,241,0.3); }
+  .badge-success { background: rgba(16,185,129,0.1); color: #34D399; border-color: rgba(16,185,129,0.3); }
+
+  /* Layout Components */
+  #sidebar {
+    width: 260px;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    background: var(--bg-surface);
+    border-right: 1px solid var(--border);
+    transition: width 0.3s ease;
+    z-index: 50;
+  }
+  #sidebar.collapsed { width: 72px; }
+  
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    margin: 0.25rem 0.5rem;
+    border-radius: var(--radius-md);
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .nav-item:hover { background: var(--bg-elevated); color: var(--text-main); }
+  .nav-item.active {
+    background: var(--accent-glow);
+    color: var(--accent);
+    border-right: 3px solid var(--accent);
+  }
+
+  /* Page Transitions */
+  .page-section {
+    display: none;
+    opacity: 0;
+  }
+  .page-section.active {
+    display: block;
+    animation: fadeUp 0.4s ease forwards;
+  }
+
+  /* Inputs */
+  .input-elite {
+    width: 100%;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1rem;
+    color: var(--text-main);
+    font-family: inherit;
+    transition: all 0.2s;
+    outline: none;
+  }
+  .input-elite:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+
+  /* Progress Bar */
+  .progress-track {
+    height: 6px;
+    background: var(--bg-elevated);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #6366F1, #34D399);
+    border-radius: 99px;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Mobile Adjustments */
+  @media (max-width: 1024px) {
+    #sidebar { position: fixed; transform: translateX(-100%); z-index: 100; }
+    #sidebar.mobile-open { transform: translateX(0); }
+    .hide-mobile { display: none !important; }
+  }
 </style>
 </head>
 <body class="flex min-h-screen">
 
-  <aside id="sidebar" class="w-64 border-r border-white/10 flex flex-col bg-[#111827]">
-    <div class="p-6 font-bold text-xl">BYK<span class="text-indigo-400">Exam</span></div>
-    <div class="flex-1 overflow-y-auto" id="nav-container">
-       <div class="nav-item active" onclick="navigate('home')">🏠 Dashboard</div>
+  <div id="toast-container" class="fixed top-20 right-4 z-[9999] flex flex-col gap-2 pointer-events-none w-72"></div>
+
+  <aside id="sidebar" class="flex flex-col">
+    <div class="h-16 flex items-center justify-between px-4 border-b" style="border-color: var(--border);">
+      <div class="flex items-center gap-3 overflow-hidden whitespace-nowrap">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center text-white font-black bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg shrink-0">B</div>
+        <span class="font-bold text-lg tracking-tight sidebar-text">BYK<span class="text-indigo-400">Exam</span></span>
+      </div>
+      <button onclick="toggleSidebar()" class="text-gray-400 hover:text-white p-1 rounded-md hide-mobile">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+      </button>
     </div>
+    
+    <div class="flex-1 overflow-y-auto py-4" id="nav-container">
+      </div>
   </aside>
 
-  <div class="flex-1 flex flex-col">
-    <header class="p-6 flex justify-between items-center border-b border-white/10 bg-[#0B0F19]/80 backdrop-blur-md sticky top-0">
-      <h2 id="current-page-title" class="text-xl font-bold">Dashboard</h2>
-      <div class="flex gap-3">
-        <button id="login-btn" onclick="handleAuth()" class="bg-indigo-600 px-4 py-2 rounded-lg text-xs font-bold hover:bg-indigo-700 transition">
-          Login with Google
-        </button>
-        <button onclick="toggleTheme()" class="p-2 rounded-lg border border-white/10">🌙</button>
+  <div class="flex-1 flex flex-col min-w-0">
+    
+    <header class="sticky top-0 z-40 backdrop-blur-xl" style="background: var(--glass-bg); border-bottom: 1px solid var(--border);">
+      <div class="h-6 overflow-hidden bg-indigo-600 text-white text-[11px] font-bold uppercase tracking-wider flex items-center">
+        <div class="animate-ticker flex whitespace-nowrap" id="news-ticker">
+          </div>
+      </div>
+      
+      <div class="h-14 px-4 sm:px-6 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-gray-400 hover:text-white">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          </button>
+          <div class="text-sm font-medium hide-mobile" style="color: var(--text-muted);">
+            Dashboard <span class="mx-2">/</span> <span id="current-page-title" class="text-indigo-400">Home</span>
+          </div>
+        </div>
+        
+        <div class="flex items-center gap-3">
+          <button onclick="alert('Search feature activated via Cmd+K (Pending DB connection)')" class="btn-outline px-3 py-1.5 text-xs flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <span class="hide-mobile">Search</span>
+            <kbd class="hidden sm:inline-block font-mono bg-gray-800 rounded px-1 text-[10px]">⌘K</kbd>
+          </button>
+          <button onclick="toggleTheme()" class="p-2 rounded-lg btn-outline" title="Toggle Theme">
+            <span id="theme-icon">🌙</span>
+          </button>
+
+          <button id="login-btn" onclick="handleAuth()" class="btn-primary px-4 py-1.5 text-sm hide-mobile flex items-center gap-2 border border-indigo-400/30">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+            </svg>
+            <span id="login-text">Login</span>
+          </button>
+          
+          <button onclick="navigate('quiz')" class="btn-primary px-4 py-1.5 text-sm hide-mobile">
+            ⚡ Quick Test
+          </button>
+        </div>
       </div>
     </header>
-    
-    <main class="p-8">
-      <div id="page-home" class="page-section active glass-panel p-12 text-center">
-        <h1 class="text-5xl font-black mb-6">Stop Scanning.<br/><span class="text-indigo-400">Start Scoring.</span></h1>
-        <p class="text-gray-400">Elite AI-powered portal for your success.</p>
+
+    <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 relative">
+      
+      <div class="absolute top-0 right-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-[100px] pointer-events-none -z-10"></div>
+      <div class="absolute bottom-0 left-0 w-96 h-96 bg-teal-500/10 rounded-full blur-[100px] pointer-events-none -z-10"></div>
+
+      <div id="page-home" class="page-section active">
+        <div class="text-center py-12 lg:py-20 animate-fade-up">
+          <span class="badge badge-brand mb-4">India's Elite Learning Ecosystem</span>
+          <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight mb-6 leading-tight">
+            Stop Scanning.<br />
+            <span class="text-gradient">Start Scoring.</span>
+          </h1>
+          <p class="text-lg md:text-xl max-w-2xl mx-auto mb-10" style="color: var(--text-muted);">
+            AI-powered evaluation, predictive PYQ research, and adaptive mock tests for UPSC, State PCS, SSC, and IGNOU.
+          </p>
+          <div class="flex justify-center gap-4 flex-wrap">
+            <button onclick="navigate('quiz')" class="btn-primary text-lg px-8 py-3">Start Mock Test</button>
+            <button onclick="navigate('ai-eval')" class="btn-outline text-lg px-8 py-3">🤖 AI Evaluator</button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+          <div class="glass-panel p-6 text-center">
+            <div class="text-3xl font-black text-indigo-400 mb-1">500+</div>
+            <div class="text-xs uppercase tracking-wider" style="color: var(--text-muted);">Study PDFs</div>
+          </div>
+          <div class="glass-panel p-6 text-center">
+            <div class="text-3xl font-black text-teal-400 mb-1">20+</div>
+            <div class="text-xs uppercase tracking-wider" style="color: var(--text-muted);">Exams Covered</div>
+          </div>
+          <div class="glass-panel p-6 text-center">
+            <div class="text-3xl font-black text-yellow-400 mb-1">5K+</div>
+            <div class="text-xs uppercase tracking-wider" style="color: var(--text-muted);">Live MCQs</div>
+          </div>
+          <div class="glass-panel p-6 text-center">
+            <div class="text-3xl font-black text-rose-400 mb-1">100%</div>
+            <div class="text-xs uppercase tracking-wider" style="color: var(--text-muted);">Free Access</div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-2xl font-bold">Exam Categories</h2>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-12" id="home-categories">
+          </div>
+
+        <div class="grid lg:grid-cols-3 gap-6">
+          
+          <div class="lg:col-span-2 space-y-6">
+            <h2 class="text-2xl font-bold">Elite Features</h2>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div class="glass-panel p-6 cursor-pointer" onclick="navigate('ai-eval')">
+                <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-2xl mb-4">🤖</div>
+                <h3 class="font-bold mb-2">Mains Answer Evaluator</h3>
+                <p class="text-sm" style="color: var(--text-muted);">Get marks, structural feedback, and grammar corrections for UPSC/PCS answers instantly.</p>
+              </div>
+              <div class="glass-panel p-6 cursor-pointer" onclick="navigate('quiz')">
+                <div class="w-12 h-12 rounded-xl bg-teal-500/10 text-teal-400 flex items-center justify-center text-2xl mb-4">⚡</div>
+                <h3 class="font-bold mb-2">Adaptive Mock Engine</h3>
+                <p class="text-sm" style="color: var(--text-muted);">Real exam UI with negative marking, timers, and detailed post-test analytics.</p>
+              </div>
+              <div class="glass-panel p-6 cursor-pointer" onclick="navigate('ignou')">
+                <div class="w-12 h-12 rounded-xl bg-yellow-500/10 text-yellow-400 flex items-center justify-center text-2xl mb-4">🎓</div>
+                <h3 class="font-bold mb-2">IGNOU Complete Hub</h3>
+                <p class="text-sm" style="color: var(--text-muted);">Track assignments, download study material, and view datesheets in one dashboard.</p>
+              </div>
+              <div class="glass-panel p-6 cursor-pointer" onclick="navigate('notes')">
+                <div class="w-12 h-12 rounded-xl bg-rose-500/10 text-rose-400 flex items-center justify-center text-2xl mb-4">📚</div>
+                <h3 class="font-bold mb-2">Curated PDF Library</h3>
+                <p class="text-sm" style="color: var(--text-muted);">Predictive PYQs, Topper notes, and crisp summaries ready to download.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-6">
+            <h2 class="text-2xl font-bold">Today's Focus</h2>
+            <div class="glass-panel p-6">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="font-bold text-sm text-indigo-400">DAILY TASKS</h3>
+                <span class="text-xs text-gray-500" id="current-date"></span>
+              </div>
+              <div class="space-y-3" id="daily-tasks">
+                <label class="flex items-start gap-3 cursor-pointer group">
+                  <input type="checkbox" class="mt-1 accent-indigo-500 w-4 h-4" />
+                  <span class="text-sm group-hover:text-indigo-300 transition-colors">Read Current Affairs (Apr 2026)</span>
+                </label>
+                <label class="flex items-start gap-3 cursor-pointer group">
+                  <input type="checkbox" class="mt-1 accent-indigo-500 w-4 h-4" />
+                  <span class="text-sm group-hover:text-indigo-300 transition-colors">Solve 25 Polity MCQs</span>
+                </label>
+                <label class="flex items-start gap-3 cursor-pointer group">
+                  <input type="checkbox" class="mt-1 accent-indigo-500 w-4 h-4" />
+                  <span class="text-sm group-hover:text-indigo-300 transition-colors">Write 1 Ethics Answer (AI Eval)</span>
+                </label>
+              </div>
+              <button onclick="navigate('quiz')" class="w-full btn-outline mt-5 text-sm py-2">Start First Task →</button>
+            </div>
+
+            <div class="glass-panel p-6">
+              <h3 class="font-bold text-sm mb-4">ACTIVITY HEATMAP</h3>
+              <div class="grid grid-cols-7 gap-1" id="heatmap-mini">
+                </div>
+              <p class="text-center text-xs mt-3" style="color: var(--text-muted);">Consistency is key. 14 day streak 🔥</p>
+            </div>
+          </div>
+
+        </div>
       </div>
+
+      <div id="page-ai-eval" class="page-section">
+        <div class="max-w-4xl mx-auto">
+          <div class="flex items-center gap-4 mb-8">
+            <div class="w-16 h-16 rounded-2xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-3xl">🤖</div>
+            <div>
+              <h1 class="text-3xl font-black">AI Mains Evaluator</h1>
+              <p style="color: var(--text-muted);">Paste your answer. Get expert-level feedback instantly.</p>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="glass-panel p-6">
+              <div class="mb-4">
+                <label class="block text-xs font-bold mb-2 uppercase tracking-wide" style="color: var(--text-muted);">The Question</label>
+                <textarea id="ai-q" class="input-elite h-20" placeholder="e.g., Discuss the role of Judiciary in upholding federalism..."></textarea>
+              </div>
+              <div class="mb-4">
+                <label class="block text-xs font-bold mb-2 uppercase tracking-wide" style="color: var(--text-muted);">Your Answer</label>
+                <textarea id="ai-a" class="input-elite h-64" placeholder="Write your comprehensive answer here..."></textarea>
+              </div>
+              <div class="grid grid-cols-2 gap-4 mb-6">
+                <div>
+                  <label class="block text-xs font-bold mb-2" style="color: var(--text-muted);">EXAM</label>
+                  <select class="input-elite"><option>UPSC CSE</option><option>State PCS</option></select>
+                </div>
+                <div>
+                  <label class="block text-xs font-bold mb-2" style="color: var(--text-muted);">WORD LIMIT</label>
+                  <select class="input-elite"><option>250 Words (15M)</option><option>150 Words (10M)</option></select>
+                </div>
+              </div>
+              <button onclick="simulateAIEval()" class="btn-primary w-full py-3 text-lg" id="eval-btn">Evaluate Answer</button>
+            </div>
+
+            <div class="glass-panel p-6 flex flex-col justify-center items-center text-center relative overflow-hidden" id="ai-result-area">
+              <div class="text-6xl mb-4 opacity-50">📑</div>
+              <h3 class="text-xl font-bold mb-2">Waiting for input...</h3>
+              <p class="text-sm max-w-xs" style="color: var(--text-muted);">The AI engine will analyze your structure, grammar, and content relevance.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="page-coming-soon" class="page-section">
+        <div class="flex flex-col items-center justify-center min-h-[60vh] text-center">
+          <div class="text-6xl mb-6 animate-pulse-slow">🚧</div>
+          <h1 class="text-3xl font-black mb-2">Module Under Construction</h1>
+          <p class="text-lg max-w-md" style="color: var(--text-muted);">This section is currently being linked to the Supabase database. Please check out the Home Dashboard or AI Evaluator.</p>
+          <button onclick="navigate('home')" class="btn-primary mt-8">← Back to Dashboard</button>
+        </div>
+      </div>
+
     </main>
   </div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyDt57DdiTxlLIHK0vkl5IwW1RL9o3DUe3k",
-      authDomain: "byk-all-exam.firebaseapp.com",
-      projectId: "byk-all-exam",
-      storageBucket: "byk-all-exam.firebasestorage.app",
-      messagingSenderId: "413565314858",
-      appId: "1:413565314858:web:c614e57ed60c47a5b32053"
-    };
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDt57DdiTxlLIHK0vkl5IwW1RL9o3DUe3k",
+    authDomain: "byk-all-exam.firebaseapp.com",
+    projectId: "byk-all-exam",
+    storageBucket: "byk-all-exam.firebasestorage.app",
+    messagingSenderId: "413565314858",
+    appId: "1:413565314858:web:c614e57ed60c47a5b32053"
+  };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const provider = new GoogleAuthProvider();
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+  window.firebaseApp = app; 
+  console.log("Firebase Database Connected Successfully! 🚀");
 
-    // Login Function
-    window.handleAuth = () => {
-      signInWithPopup(auth, provider)
-        .then((res) => {
-            updateUI(res.user);
-        })
-        .catch((err) => {
-            console.error(err);
-            alert("Error: " + err.message);
-        });
-    };
+  // Google Login Function
+  window.handleAuth = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const user = result.user;
+        document.getElementById('login-text').innerText = "Hi, " + user.displayName.split(' ')[0];
+        // Triggering the Elite Notification System
+        if(typeof showToast === 'function') {
+            showToast(`Welcome back, ${user.displayName}! 🚀`, 'success');
+        }
+      })
+      .catch((error) => {
+        if(typeof showToast === 'function') {
+            showToast(`Login Error: ${error.message}`, 'error');
+        } else {
+            alert("Login failed: " + error.message);
+        }
+      });
+  };
 
-    function updateUI(user) {
-      document.getElementById('login-btn').innerText = "Hi, " + user.displayName.split(' ')[0];
+  // Check if User is already Logged in on page load
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      document.getElementById('login-text').innerText = "Hi, " + user.displayName.split(' ')[0];
     }
+  });
+</script>
 
-    onAuthStateChanged(auth, (user) => {
-      if (user) updateUI(user);
-    });
+<script>
+/* Clean, Modular, and Error-Resistant */
 
-    // Theme logic
-    window.toggleTheme = () => {
-        document.getElementById('html-root').classList.toggle('dark');
-    };
-    
-    // Simple Navigation mock
-    window.navigate = (page) => {
-        document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
-        document.getElementById('page-'+page).classList.add('active');
-    };
-  </script>
-</body>
-</html>
+// --- STATE MANAGEMENT ---
+const AppData = {
+  theme: localStorage.getItem('byk_theme') || 'dark',
+  currentPage: 'home',
+  sidebarOpen: window.innerWidth > 1024,
+  
+  navigation: [
+    { id: 'home', label: 'Dashboard', icon: '🏠', type: 'main' },
+    { id: 'upsc', label: 'UPSC CSE', icon: '📋', type: 'exam' },
+    { id: 'statepcs', label: 'State PCS', icon: '🏛️', type: 'exam' },
+    { id: 'ssc', label: 'SSC & Railway', icon: '🛡️', type: 'exam' },
+    { id: 'banking', label: 'Banking', icon: '🏦', type: 'exam' },
+    { id: 'ignou', label: 'IGNOU Hub', icon: '🎓', type: 'exam' },
+    { id: 'quiz', label: 'Mock Engine', icon: '⚡', type: 'tool' },
+    { id: 'ai-eval', label: 'AI Evaluator', icon: '🤖', type: 'tool' },
+    { id: 'notes', label: 'PDF Library', icon: '📚', type: 'tool' },
+  ],
+  
+  tickerNews: [
+    "🔴 UPSC CSE 2026 Notification Released",
+    "🟡 UPPCS 2025 Result Declared",
+    "🟢 SSC CGL Tier-I Answer Key Out",
+    "🔵 IGNOU Assignments Deadline: May 31"
+  ]
+};
+
+// --- INITIALIZATION ---
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    applyTheme(AppData.theme);
+    buildSidebar();
+    buildTicker();
+    buildHomeCategories();
+    buildMiniHeatmap();
+    document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-IN', { month: 'short', day: 'numeric' });
+    navigate('home');
+    // Notification on startup
+    setTimeout(() => { showToast('Welcome to BYK Elite Portal 🚀', 'info'); }, 500);
+  } catch (error) {
+    console.error("Initialization Error:", error);
+  }
+});
+
+// --- THEME ENGINE ---
+function applyTheme(theme) {
+  const root = document.getElementById('html-root');
+  if (theme === 'light') {
